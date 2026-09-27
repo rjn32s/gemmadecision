@@ -1,0 +1,103 @@
+site_name: GemmaDecision
+site_description: Local decisions in Python. A quickstart, practical recipes, PydanticAI integration and serving guides.
+site_url: https://rjn32s.github.io/gemmadecision/
+repo_url: https://github.com/rjn32s/gemmadecision
+repo_name: rjn32s/gemmadecision
+edit_uri: edit/main/docs/
+copyright: Code Apache-2.0 · Model weights governed by Gemma terms
+strict: true
+validation:
+  links:
+    anchors: warn
+use_directory_urls: true
+theme:
+  name: material
+  language: en
+  font: false
+  icon:
+    logo: material/transit-connection-variant
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.action.edit
+    - search.suggest
+    - search.highlight
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+extra_css:
+  - assets/extra.css
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rjn32s/gemmadecision
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/gemmadecision/
+nav:
+  - Get started:
+      - Overview: index.md
+      - Quickstart: quickstart.md
+      - How decisions work: concepts.md
+  - Use cases:
+      - Find a recipe: use-cases/index.md
+      - Route support tickets: use-cases/ticket-routing.md
+      - Classify intents: use-cases/intent-classification.md
+      - Label sentiment: use-cases/sentiment.md
+      - Check urgency: use-cases/urgency-check.md
+      - Score urgency: use-cases/urgency-rubric.md
+      - Check evidence: use-cases/evidence-relation.md
+      - Rank supplied responses: use-cases/response-ranking.md
+      - Select a tool: use-cases/tool-selection.md
+      - Return typed triage: use-cases/typed-triage.md
+      - Add human review: use-cases/human-review.md
+  - PydanticAI: pydantic_ai.md
+  - Guides:
+      - Write useful choices: guides/choosing-options.md
+      - Serve an HTTP API: guides/serving.md
+      - Deploy on your hardware: guides/deployment.md
+      - Troubleshooting: guides/troubleshooting.md
+      - Advanced configuration: advanced.md
+      - Optional vLLM: vllm.md
+  - Reference:
+      - Python API: reference/python.md
+      - HTTP API: reference/http.md
+      - CLI and environment: reference/cli.md
+      - Limits and model scope: reference/limits.md
+  - Performance:
+      - CPU latency: cpu-latency.md
+      - GPU and server measurements: performance.md
+      - Published-package checks: installed-package-validation.md
+  - Project:
+      - Releases and containers: releasing.md
+      - Contribute to the docs: contributing-docs.md

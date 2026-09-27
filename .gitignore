@@ -9,6 +9,8 @@ dist/
 build/
 *.egg-info/
 .venv/
+.venv-docs/
+site/
 venv/
 .DS_Store
 .env

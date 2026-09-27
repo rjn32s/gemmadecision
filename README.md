@@ -3,6 +3,11 @@
 Small, local decisions in one Python call. [Available on PyPI](https://pypi.org/project/gemmadecision/). Powered by
 [GemmaDecision-270M](https://huggingface.co/rajan2k/GemmaDecision-270M).
 
+**[Documentation](https://rjn32s.github.io/gemmadecision/)** ·
+[Quickstart](https://rjn32s.github.io/gemmadecision/quickstart/) ·
+[10 use-case recipes](https://rjn32s.github.io/gemmadecision/use-cases/) ·
+[API reference](https://rjn32s.github.io/gemmadecision/reference/python/)
+
 ## Install
 
 ```bash

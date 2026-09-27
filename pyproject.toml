@@ -38,6 +38,7 @@ gemmadecision = "gemmadecision.cli:main"
 [project.urls]
 Homepage = "https://github.com/rjn32s/gemmadecision"
 Repository = "https://github.com/rjn32s/gemmadecision"
+Documentation = "https://rjn32s.github.io/gemmadecision/"
 Issues = "https://github.com/rjn32s/gemmadecision/issues"
 Model = "https://huggingface.co/rajan2k/GemmaDecision-270M"
 
@@ -45,7 +46,7 @@ Model = "https://huggingface.co/rajan2k/GemmaDecision-270M"
 packages = ["python/gemmadecision"]
 
 [tool.hatch.build.targets.sdist]
-include = ["python", "tests", "examples", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "pyproject.toml"]
+include = ["python", "tests", "examples", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "pyproject.toml", "mkdocs.yml", "requirements-docs.txt"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

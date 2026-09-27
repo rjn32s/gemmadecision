@@ -1,0 +1,25 @@
+:root {
+  --md-text-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-code-font: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #14644f;
+  --md-accent-fg-color: #11745a;
+  --md-default-bg-color: #fcfdfa;
+}
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #164b40;
+  --md-accent-fg-color: #83d8b7;
+  --md-typeset-a-color: #83d8b7;
+}
+[data-md-color-scheme="slate"] .md-typeset .md-button:not(.md-button--primary) { color: #83d8b7; border-color: #83d8b7; }
+[data-md-color-scheme="slate"] .md-typeset .md-button:hover { color: #17231e; }
+.md-grid { max-width: 76rem; }
+.md-typeset h1 { font-weight: 700; color: var(--md-default-fg-color); letter-spacing: -.035em; }
+.md-typeset h2 { font-weight: 650; letter-spacing: -.02em; }
+.md-typeset .hero-kicker { color: var(--md-accent-fg-color); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.md-typeset .hero-lead { font-size: 1.1rem; max-width: 38rem; }
+.md-typeset .grid.cards > ul > li { border-radius: .6rem; padding: 1rem; }
+.md-typeset .md-button { border-radius: .35rem; }
+.md-typeset pre > code { border-radius: .35rem; }
+.md-typeset table:not([class]) th { white-space: nowrap; }

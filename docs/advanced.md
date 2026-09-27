@@ -1,4 +1,4 @@
-# gemmadecision
+# Advanced configuration
 
 Typed local decisions for Python and PydanticAI. One command serves the complete
 [GemmaDecision-270M](https://huggingface.co/rajan2k/GemmaDecision-270M) model with
@@ -132,8 +132,8 @@ exists for controlled deployments. HTTP request-content logs are disabled.
 
 Maximum input: 2,048 state/question tokens; 768 tokens per candidate; 2–64
 distinct candidates per question; 32 questions and 256 total pairs per request;
-2 MiB request body. Inputs are refused with HTTP 422 rather than silently
-truncated. Overload returns 503; queue timeout returns 504. Health is independent
+2 MiB request body. Token and schema limits return HTTP 422 rather than silently
+truncating inputs; an oversized body returns 413. Overload returns 503; queue timeout returns 504. Health is independent
 of inference authorization and includes no request text. There is one bounded
 inference queue and one model instance per process.
 
@@ -170,5 +170,5 @@ are separate reproducible artifacts. `gemmadecision doctor` reports installed
 backends without loading weights.
 
 Code: Apache-2.0. Weights: separate Gemma terms. Dependency licenses and CLM schema
-attribution are in [NOTICE](../NOTICE). This package is not affiliated with Google,
+attribution are in [NOTICE](https://github.com/rjn32s/gemmadecision/blob/main/NOTICE). This package is not affiliated with Google,
 PydanticAI, vLLM, Granian, CLM or the JevBench maintainers.

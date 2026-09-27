@@ -6,21 +6,32 @@ Start with in-process inference. Install the model runtime and integration:
 pip install gemmadecision
 ```
 
+New to GemmaDecision? The [quickstart](quickstart.md) covers installation and
+your first local decision. The [cookbook](use-cases/index.md) adds practical
+examples for routing, ranking, and review workflows.
+
 There is no server to start, and no external model account or paid API key:
 
 ```python
 from typing import Literal
+
 from pydantic_ai import Agent
+
 from gemmadecision import GemmaDecisionModel
 
-router = Agent(
-    GemmaDecisionModel.local(),
-    output_type=Literal['billing', 'account', 'technical'],
-    instructions='Which support team should handle this ticket?',
-)
 
-result = router.run_sync('I was charged twice.')
-print(result.output)
+def main() -> None:
+    router = Agent(
+        GemmaDecisionModel.local(),
+        output_type=Literal['billing', 'account', 'technical'],
+        instructions='Which support team should handle this ticket?',
+    )
+    result = router.run_sync('I was charged twice.')
+    print(result.output)
+
+
+if __name__ == '__main__':
+    main()
 ```
 
 The constructor does not download or load weights. The first request downloads
@@ -38,18 +49,27 @@ an already running model operation may finish in the background.
 
 ## Use an existing server
 
-For a separate server, use the remote constructor. Start the server with the main
-README's serving command:
+For a separate server, use the remote constructor. Start a local server in one
+terminal:
+
+```bash
+gemmadecision serve --host 127.0.0.1 --port 8700
+```
+
+Once it is ready, run this script in another terminal. The
+[serving guide](guides/serving.md) covers configuration and authentication.
 
 ```python
 import asyncio
 from typing import Literal
 
 from pydantic_ai import Agent
-from gemmadecision.integrations.pydantic_ai import GemmaDecisionModel
 
-async def main():
-    async with GemmaDecisionModel() as model:
+from gemmadecision import GemmaDecisionModel
+
+
+async def main() -> None:
+    async with GemmaDecisionModel(base_url='http://127.0.0.1:8700') as model:
         router = Agent(
             model,
             output_type=Literal['billing', 'account', 'technical'],
@@ -59,7 +79,9 @@ async def main():
         print(result.output)
         print(result.response.provider_details['probabilities'])
 
-asyncio.run(main())
+
+if __name__ == '__main__':
+    asyncio.run(main())
 ```
 
 The output is one of your supplied labels. The integration subclasses
@@ -70,11 +92,17 @@ schemas into ranking questions. It does not wrap a ranker as a text generator.
 
 Each field becomes a question; questions are evaluated together in one local
 engine call, or one HTTP request with a remote server. Use field descriptions
-for precise questions and enum member
-descriptions when the option names alone are ambiguous.
+for precise questions and enum member descriptions when the option names alone
+are ambiguous.
 
 ```python
+from typing import Literal
+
 from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+
+from gemmadecision import GemmaDecisionModel
+
 
 class Ticket(BaseModel):
     team: Literal['billing', 'account', 'technical'] = Field(
@@ -82,11 +110,20 @@ class Ticket(BaseModel):
     )
     urgent: bool = Field(description='Does the customer need attention today?')
 
-agent = Agent(GemmaDecisionModel.local(), output_type=Ticket)
-result = agent.run_sync('My card was charged twice. I need a refund today.')
-print(result.output.team)
-print(result.output.urgent)
+
+def main() -> None:
+    agent = Agent(GemmaDecisionModel.local(), output_type=Ticket)
+    result = agent.run_sync('My card was charged twice. I need a refund today.')
+    print(result.output.team)
+    print(result.output.urgent)
+
+
+if __name__ == '__main__':
+    main()
 ```
+
+See [typed ticket triage](use-cases/typed-triage.md) for a complete workflow
+with a review route.
 
 Supported PydanticAI decision schemas include bools, finite Literal/Enum
 choices, nested models of decision fields, and described rubric levels.
@@ -114,6 +151,13 @@ that requires writing text. If tools perform real actions, the application
 remains responsible for its normal authorization rules.
 
 ```python
+from typing import Literal
+
+from pydantic_ai import Agent
+
+from gemmadecision import GemmaDecisionModel
+
+
 def route(team: Literal['billing', 'account', 'technical']) -> str:
     """Select the queue for this ticket.
 
@@ -122,9 +166,20 @@ def route(team: Literal['billing', 'account', 'technical']) -> str:
     """
     return f'Put this ticket in the {team} queue'
 
-agent = Agent(GemmaDecisionModel.local(), output_type=route)
-result = agent.run_sync('I was charged twice.')
+
+def main() -> None:
+    agent = Agent(GemmaDecisionModel.local(), output_type=route)
+    result = agent.run_sync('I was charged twice.')
+    print(result.output)
+
+
+if __name__ == '__main__':
+    main()
 ```
+
+Here `route` only returns a string; it does not send a ticket to an external
+queue. The [tool selection recipe](use-cases/tool-selection.md) shows how to
+recommend a bounded action for an application to handle.
 
 ## Confidence and performance
 
@@ -134,6 +189,8 @@ from ranking scores. They are **not measured probabilities of correctness on
 your data**. Choose thresholds using held-out examples from your application.
 Changing `decision_boolean_threshold` changes the yes/no decision cutoff; it
 does not retrain the model or turn its scores into calibrated confidence.
+The [human review recipe](use-cases/human-review.md) shows an explicit review
+option and an optional application-selected cutoff.
 
 The model produces the decision in one response. PydanticAI's streaming API
 works by emitting the complete answer; it does not make inference faster or
