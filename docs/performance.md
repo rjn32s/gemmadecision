@@ -260,3 +260,16 @@ NumPy **2.3.5** and no `lmcache` dependency. Let a fresh environment resolve
 dependencies; do not reproduce the image's forced NumPy override. The exact
 fresh installation was not separately GPU-tested. Details are in
 [runtime notes](measurements/vllm-runtime-notes.json).
+
+The released PyPI wheel subsequently passed separate
+[fresh CPU and H100 installation checks](installed-package-validation.md),
+covering local decisions, local native PydanticAI and real Granian HTTP serving.
+Those short functional checks establish that the published package works;
+their single-call timings are not additional performance benchmarks.
+
+## CPU latency
+
+The published wheel was also measured on four CPU cores: **124 ms median**
+for two 30-token candidate inputs, **189 ms** for four, and **397 ms** for
+two 128-token inputs. See the [CPU timing table and raw samples](cpu-latency.md)
+for longer inputs, sample p95, cold-start costs and measurement limits.

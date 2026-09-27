@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "function_seconds": 46.516934946,
+  "estimated_function_usd": 0.0032636281558113597,
+  "rate_usd_per_second": 7.015999999999999e-05,
+  "estimate_scope": "Function reserved CPU/RAM only; excludes image build/startup/storage/transfer"
+}

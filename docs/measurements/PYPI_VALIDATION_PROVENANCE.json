@@ -1,0 +1,38 @@
+{
+  "package": "gemmadecision",
+  "version": "0.1.0",
+  "wheel_sha256": "5897050c6e54deca3a5a683fa8a7a30ae2e2d1b496ae60e3362edca17d3cef52",
+  "source": "Fresh Modal images installed the public PyPI wheel; no repository package code or local model weights were mounted.",
+  "records": [
+    {
+      "published_file": "pypi-0.1.0-cpu.json",
+      "published_sha256": "9dcd38a415b6046194684d5e8957cc5e74cb77b04649a4b154488986fa76214b",
+      "source_artifact": "pypi-0.1.0-cpu/results.json",
+      "source_sha256": "433287b650c6f15260631cd117c3f00d5ca324eb0bf47b8161f98b762003e49a",
+      "sanitization": {
+        "field": "public_model.snapshot_path",
+        "change": "Replaced temporary run directory with $HF_HOME; all measurements preserved."
+      },
+      "modal_resources": {
+        "cpu_cores": 4,
+        "memory_gib": 8,
+        "gpu": null
+      }
+    },
+    {
+      "published_file": "pypi-0.1.0-gpu.json",
+      "published_sha256": "db35fb83033ffb4d4b78e9a541dcdf81f39a46004b4409b7170da2c3f32fd9a2",
+      "source_artifact": "pypi-0.1.0-gpu/results.json",
+      "source_sha256": "57b39a0358458809d4a52b01c0fb144c11348ad2ac4c985fe46959c0579041ce",
+      "sanitization": {
+        "field": "public_model.snapshot_path",
+        "change": "Replaced temporary run directory with $HF_HOME; all measurements preserved."
+      },
+      "modal_resources": {
+        "cpu_cores": 2,
+        "memory_gib": 16,
+        "gpu": "H100"
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # gemmadecision
 
-Small, local decisions in one Python call. Powered by
+Small, local decisions in one Python call. [Available on PyPI](https://pypi.org/project/gemmadecision/). Powered by
 [GemmaDecision-270M](https://huggingface.co/rajan2k/GemmaDecision-270M).
 
 ## Install
@@ -84,8 +84,12 @@ use `GemmaDecisionModel()` instead of `.local()`.
 
 - [Hardware settings, offline use, HTTP API and batching](https://github.com/rjn32s/gemmadecision/blob/main/docs/advanced.md)
 - [vLLM backend for Linux/CUDA](https://github.com/rjn32s/gemmadecision/blob/main/docs/vllm.md)
+- [CPU inference timings](https://github.com/rjn32s/gemmadecision/blob/main/docs/cpu-latency.md)
 - [Performance measurements and reproduction](https://github.com/rjn32s/gemmadecision/blob/main/docs/performance.md)
 - [Docker and releases](https://github.com/rjn32s/gemmadecision/blob/main/docs/releasing.md)
+
+The published wheel passed fresh Modal CPU and H100 GPU checks for local APIs,
+PydanticAI and HTTP serving. [Installation validation](https://github.com/rjn32s/gemmadecision/blob/main/docs/installed-package-validation.md).
 
 The default uses batched PyTorch for model computation and Rust for HTTP
 serving. vLLM is optional; no Rust compiler is needed to install the package.

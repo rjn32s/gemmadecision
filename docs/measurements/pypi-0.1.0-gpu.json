@@ -1,0 +1,158 @@
+{
+  "status": "passed",
+  "device": "cuda",
+  "started_at": "2026-09-27T10:46:02.808959+00:00",
+  "accuracy_evaluated": false,
+  "source_code_mounted": false,
+  "installation": {
+    "distribution_version": "0.1.0",
+    "module_file": "/usr/local/lib/python3.11/site-packages/gemmadecision/__init__.py",
+    "module_sha256": "66fccdd0df22c991447958debd94d4f07ce3723ca4add461c0ca12ed42c2bd45",
+    "installer": "pip\n",
+    "pypi_artifact": {
+      "url": "https://files.pythonhosted.org/packages/12/9f/359c665e94b65ff9d7c3c69f6c9761d02f8de59497c10a4831748af6087b/gemmadecision-0.1.0-py3-none-any.whl",
+      "archive_info": {
+        "hash": "sha256=5897050c6e54deca3a5a683fa8a7a30ae2e2d1b496ae60e3362edca17d3cef52",
+        "hashes": {
+          "sha256": "5897050c6e54deca3a5a683fa8a7a30ae2e2d1b496ae60e3362edca17d3cef52"
+        }
+      }
+    },
+    "direct_url_metadata_absent": true,
+    "python": "3.11.12",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "runtime_versions": {
+      "torch": "2.14.0",
+      "transformers": "5.17.0",
+      "pydantic-ai-slim": "2.51.0",
+      "granian": "2.8.3",
+      "fastapi": "0.136.3"
+    }
+  },
+  "public_model": {
+    "repo": "rajan2k/GemmaDecision-270M",
+    "revision": "785d530221c990671f29976902540101bb9c7647",
+    "download_seconds": 5.571580534,
+    "snapshot_path": "$HF_HOME/hub/models--rajan2k--GemmaDecision-270M/snapshots/785d530221c990671f29976902540101bb9c7647",
+    "sha256": {
+      "model.safetensors": "d7a3e291bfdfa7cd85b33a8a99ef81a4a7d3192e46c77253f3daf14dfd7d6b95",
+      "joint_head.safetensors": "72ec4e7d1f0908ad684eeae250f0f70128aa4342b46174bf92a3c9851c5dd965",
+      "joint_config.json": "d48f2b5ad5fbea6a3d6723017a6f6a114260a331f0b917b8008de14501091533"
+    },
+    "authentication": "No Hugging Face token; package downloader passes token=False"
+  },
+  "local": {
+    "passed": true,
+    "device": "cuda",
+    "decision": "billing",
+    "first_decision_including_load_s": 10.208794389000001,
+    "warm_rank_s": 0.1795450119999984,
+    "native_pydantic_ai_s": 0.1471120980000009,
+    "native_pydantic_ai_result": "billing",
+    "native_provider_url": "local://gemmadecision",
+    "shared_engine_reused": true,
+    "ranking": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "ranked": [
+        {
+          "rank": 1,
+          "candidate": "1",
+          "text": "technical",
+          "score": -11.949843406677246,
+          "probability": 0.9763740894348605
+        },
+        {
+          "rank": 2,
+          "candidate": "0",
+          "text": "billing",
+          "score": -27.345027923583984,
+          "probability": 0.023625910565139536
+        }
+      ],
+      "usage": {
+        "input_tokens": 32,
+        "output_tokens": 0,
+        "total_tokens": 32,
+        "cached_pairs": 0
+      },
+      "temperature": 4.136820402388508,
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "latency_ms": 179.3887269999992
+    },
+    "engine": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "backend": "torch",
+      "cache_size": 0,
+      "temperature": 4.136820402388508,
+      "max_state_tokens": 2048,
+      "max_action_tokens": 768,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "head_dtype": "float32",
+      "strict": false,
+      "max_batch_tokens": 8192,
+      "max_batch_size": 32,
+      "model_revision": "785d530221c990671f29976902540101bb9c7647",
+      "verified": true
+    },
+    "torch_threads": 2,
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "process_peak_rss_mib": 5184.453125,
+    "torch_version": "2.14.0+cu130",
+    "accuracy_evaluated": false
+  },
+  "local_process_exited_before_server_started": true,
+  "http": {
+    "passed": true,
+    "typed_client": "AsyncDecisionClient injected into native PydanticAI model",
+    "typed_result": {
+      "route": "billing",
+      "urgent": true
+    },
+    "inference_post_requests": 1,
+    "elapsed_client_and_agent_s": 3.6255400890000047,
+    "probability_metadata": {
+      "confidence": {
+        "route": 0.9439165692265825,
+        "urgent": 0.211806
+      },
+      "probabilities": {
+        "route": {
+          "billing": 0.9439165692265825,
+          "technical": 0.05608343077341752
+        }
+      },
+      "scores": {},
+      "probabilities_source": "softmax_scores",
+      "confidence_note": "Ranking probabilities; validate calibration on your own data."
+    },
+    "health": {
+      "status": "ready",
+      "serving_runtime": "granian-rust",
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "backend": "torch",
+      "cache_size": 0,
+      "temperature": 4.136820402388508,
+      "max_state_tokens": 2048,
+      "max_action_tokens": 768,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "head_dtype": "float32",
+      "strict": false,
+      "max_batch_tokens": 2048,
+      "max_batch_size": 8,
+      "model_revision": "785d530221c990671f29976902540101bb9c7647",
+      "verified": true,
+      "queued_requests": 0,
+      "completed_requests": 1,
+      "model_batches": 1
+    },
+    "runtime": "actual Granian child process over loopback HTTP"
+  },
+  "validation_seconds": 35.186220601,
+  "function_seconds": 35.628719058,
+  "estimated_function_usd": 0.04128370934688577,
+  "rate_usd_per_second": 0.0011587200000000002,
+  "package_version": "0.1.0",
+  "estimate_scope": "Function reserved CPU/RAM/GPU only; excludes image build, startup, storage and transfer"
+}
