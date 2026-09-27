@@ -1,0 +1,15 @@
+**
+!Dockerfile
+!.dockerignore
+!pyproject.toml
+!README.md
+!LICENSE
+!NOTICE
+!python/
+!python/**
+**/__pycache__/
+**/*.py[cod]
+**/*.safetensors
+**/*.bin
+**/.env
+**/hf_token*

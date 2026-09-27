@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling==1.31.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gemmadecision"
+version = "0.1.0"
+description = "Typed local decisions for PydanticAI, with Rust HTTP serving and batched Gemma inference"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{name = "Rajan Shukla"}]
+keywords = ["gemma", "pydantic-ai", "decision-model", "vllm", "granian"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "pydantic>=2.12,<3", "httpx>=0.28,<1", "pydantic-ai-slim>=2.51,<3",
+  "granian>=2.8,<3", "fastapi>=0.133,<0.137", "torch>=2.13,<2.15",
+  "transformers>=5.17,<6", "safetensors>=0.8,<1", "huggingface-hub>=1.33,<2", "numpy>=2,<3",
+]
+
+[project.optional-dependencies]
+serve = ["granian>=2.8,<3", "fastapi>=0.133,<0.137", "torch>=2.13,<2.15", "transformers>=5.17,<6", "safetensors>=0.8,<1", "huggingface-hub>=1.33,<2", "numpy>=2,<3"]
+http = ["granian>=2.8,<3", "fastapi>=0.133,<0.137"]
+pydantic-ai = ["pydantic-ai-slim>=2.51,<3"]
+vllm = ["vllm==0.30.0", "granian>=2.8,<3", "fastapi>=0.133,<0.137", "transformers>=5.17,<6"]
+test = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "asgi-lifespan>=2,<3", "granian>=2.8,<3", "fastapi>=0.133,<0.137", "build>=1,<2", "twine>=6,<7"]
+
+[project.scripts]
+gemmadecision = "gemmadecision.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/rjn32s/gemmadecision"
+Repository = "https://github.com/rjn32s/gemmadecision"
+Issues = "https://github.com/rjn32s/gemmadecision/issues"
+Model = "https://huggingface.co/rajan2k/GemmaDecision-270M"
+
+[tool.hatch.build.targets.wheel]
+packages = ["python/gemmadecision"]
+
+[tool.hatch.build.targets.sdist]
+include = ["python", "tests", "examples", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

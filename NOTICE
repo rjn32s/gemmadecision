@@ -1,0 +1,16 @@
+GemmaDecision serving package
+Copyright 2026 Rajan Shukla
+
+python/gemmadecision/_clm_schema.py is derived from Contrastive-LM/CLM,
+revision e939398d4556fcd9400c76fa8c5a513202f42b0a, Apache License 2.0.
+https://github.com/Contrastive-LM/CLM
+Other serving code is original to this package.
+
+Granian supplies the Rust HTTP server (BSD-3-Clause); Pydantic Core supplies
+Rust-backed data validation (MIT). PyTorch/vLLM execute model tensor operations.
+Dependencies retain their respective licenses. This package is not an all-Rust
+model implementation and does not claim endorsement by upstream projects.
+
+Model weights are downloaded separately from rajan2k/GemmaDecision-270M.
+They are modified Google Gemma weights governed by the Gemma terms and
+Prohibited Use Policy in that repository, not this package's code license.
