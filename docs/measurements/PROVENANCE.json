@@ -1,0 +1,78 @@
+{
+  "format": "gemmadecision-portable-measurements-v1",
+  "files": {
+    "h100-backend.json": {
+      "source_run_file": "torch-01/backend-results.json",
+      "original_sha256": "12a5a876e668b48c62c546d3f6b7180913ce787274f30cfd8a1869d9cbfd99c6",
+      "published_sha256": "12a5a876e668b48c62c546d3f6b7180913ce787274f30cfd8a1869d9cbfd99c6",
+      "changes": []
+    },
+    "h100-backend-source-hashes.json": {
+      "source_run_file": "torch-01/source-hashes.json",
+      "original_sha256": "345a7468999bbf71a7eea782f19f405edeb5c44bb9ae36fb38c106f2f59efd48",
+      "published_sha256": "345a7468999bbf71a7eea782f19f405edeb5c44bb9ae36fb38c106f2f59efd48",
+      "changes": []
+    },
+    "h100-backend-compute.json": {
+      "source_run_file": "torch-01/compute.json",
+      "original_sha256": "7218ed283a25acfd29a2f38cae6c3e1480a5c16b5d4de0ab500c534043d0bdd4",
+      "published_sha256": "7218ed283a25acfd29a2f38cae6c3e1480a5c16b5d4de0ab500c534043d0bdd4",
+      "changes": []
+    },
+    "h100-http.json": {
+      "source_run_file": "torch-http-02/server-results.json",
+      "original_sha256": "9ca924bfe101c373e46d08aa480d21d9997c23d1c55c77e7eb4cc64f3ff67415",
+      "published_sha256": "04bd8ff0f5bdf08807d58b42ee843596061bfbc14cefdc2c72c2d5c3931ba1b0",
+      "changes": [
+        "Interpreter path normalized to python",
+        "Local model directory normalized to MODEL_DIR; measured values unchanged"
+      ]
+    },
+    "h100-http-source-hashes.json": {
+      "source_run_file": "torch-http-02/source-hashes.json",
+      "original_sha256": "478abbff04b6f0a0ebdf0be10761beb552cb45f0892f1ba91168db99a1a7ac1a",
+      "published_sha256": "478abbff04b6f0a0ebdf0be10761beb552cb45f0892f1ba91168db99a1a7ac1a",
+      "changes": []
+    },
+    "h100-http-compute.json": {
+      "source_run_file": "torch-http-02/compute.json",
+      "original_sha256": "35aba79feb6337b535618678e3a4583f5da6c3ac69406f70f08bcb04ada0a7d9",
+      "published_sha256": "35aba79feb6337b535618678e3a4583f5da6c3ac69406f70f08bcb04ada0a7d9",
+      "changes": []
+    },
+    "vllm-h100-backend.json": {
+      "source_run_file": "vllm-01/backend-results.json",
+      "original_sha256": "aba30130bb0dae538a7a3cc1f276d08b232581020a6a05063bc420cc3f288c94",
+      "published_sha256": "aba30130bb0dae538a7a3cc1f276d08b232581020a6a05063bc420cc3f288c94",
+      "changes": []
+    },
+    "vllm-h100-http.json": {
+      "source_run_file": "vllm-01/server-results.json",
+      "original_sha256": "ad968b9671c0319503c9a32d76b8bc715677459da6b85bb9eddd664d06c4ac88",
+      "published_sha256": "fcb6e90acc4a61732d9f407e62f4f33b1446c9474851a2b4325bfd3901ae5931",
+      "changes": [
+        "Interpreter path normalized to python",
+        "Local model directory normalized to MODEL_DIR; measured values unchanged"
+      ]
+    },
+    "vllm-source-hashes.json": {
+      "source_run_file": "vllm-01/source-hashes.json",
+      "original_sha256": "478abbff04b6f0a0ebdf0be10761beb552cb45f0892f1ba91168db99a1a7ac1a",
+      "published_sha256": "478abbff04b6f0a0ebdf0be10761beb552cb45f0892f1ba91168db99a1a7ac1a",
+      "changes": []
+    },
+    "vllm-compute.json": {
+      "source_run_file": "vllm-01/compute.json",
+      "original_sha256": "c557af41899338b88d1f129e0090446363f11b1d589dcea48010d57e9429fc3b",
+      "published_sha256": "c557af41899338b88d1f129e0090446363f11b1d589dcea48010d57e9429fc3b",
+      "changes": []
+    },
+    "vllm-runtime-notes.json": {
+      "source": "Validation launcher configuration/build warnings and independent uv dependency resolution",
+      "published_sha256": "22996fcec93cd81a5e79c718ee15e1a6d9e2955d52ce77bf3d896352ce56bf45",
+      "changes": []
+    }
+  },
+  "credential_pattern_scan": "Passed; no tokens, bearer credentials, user filesystem paths or Modal account URLs found in published JSON.",
+  "vllm_scope": "All vLLM-versus-Torch kernel comparisons use the same vllm-01 run with Torch 2.13.0. The trailing simple_api and native local PydanticAI checks use the default Torch backend, not vLLM."
+}

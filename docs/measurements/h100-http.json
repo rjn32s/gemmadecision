@@ -1,0 +1,292 @@
+{
+  "status": "passed",
+  "created_at": "2026-09-27T10:27:24.189892+00:00",
+  "runtime": {
+    "python": "3.11.12",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "gemmadecision": null,
+    "granian": "2.8.3",
+    "torch": "2.14.0",
+    "transformers": "5.17.0",
+    "vllm": null,
+    "pydantic-ai-slim": "2.51.0",
+    "httpx": "0.28.1",
+    "gpu_inventory": [
+      "NVIDIA H100 80GB HBM3, 580.95.05, 81559 MiB"
+    ]
+  },
+  "backend": "torch",
+  "command": [
+    "python",
+    "-m",
+    "gemmadecision.cli",
+    "serve",
+    "--model-path",
+    "MODEL_DIR",
+    "--device",
+    "cuda",
+    "--port",
+    "18700",
+    "--backend",
+    "torch",
+    "--cache-size",
+    "0",
+    "--batch-wait-ms",
+    "1",
+    "--max-batch-size",
+    "32"
+  ],
+  "model_source": "MODEL_DIR",
+  "cache_size": 0,
+  "batch_wait_ms": 1,
+  "max_batch_size": 32,
+  "max_batch_tokens": 8192,
+  "accuracy_evaluated": false,
+  "authentication": "random ephemeral bearer key, never written to report",
+  "measurements": [
+    {
+      "concurrency": 1,
+      "requests": 32,
+      "candidate_pairs": 128,
+      "input_tokens_including_repeated_state": 5416,
+      "cached_pairs": 0,
+      "elapsed_s": 1.1856150050000025,
+      "requests_per_s": 26.990211717166932,
+      "candidate_pairs_per_s": 107.96084686866773,
+      "request_latency_ms_p50": 25.625442999999137,
+      "request_latency_ms_p95": 70.17135694999901,
+      "request_latency_ms_min": 24.37622599999756,
+      "request_latency_ms_max": 179.01753900000017,
+      "model_batcher_calls": 32,
+      "requests_per_batcher_call": 1.0,
+      "completed_requests_delta": 32,
+      "latency_scope": "HTTP SDK call, excluding client semaphore wait; includes server queue and inference"
+    },
+    {
+      "concurrency": 8,
+      "requests": 32,
+      "candidate_pairs": 128,
+      "input_tokens_including_repeated_state": 5416,
+      "cached_pairs": 0,
+      "elapsed_s": 0.3418686080000022,
+      "requests_per_s": 93.60321261202138,
+      "candidate_pairs_per_s": 374.4128504480855,
+      "request_latency_ms_p50": 81.29092599999765,
+      "request_latency_ms_p95": 121.52853865000246,
+      "request_latency_ms_min": 31.423168999999973,
+      "request_latency_ms_max": 121.84021100000209,
+      "model_batcher_calls": 8,
+      "requests_per_batcher_call": 4.0,
+      "completed_requests_delta": 32,
+      "latency_scope": "HTTP SDK call, excluding client semaphore wait; includes server queue and inference"
+    },
+    {
+      "concurrency": 32,
+      "requests": 32,
+      "candidate_pairs": 128,
+      "input_tokens_including_repeated_state": 5544,
+      "cached_pairs": 0,
+      "elapsed_s": 0.37386616499999903,
+      "requests_per_s": 85.59212626261615,
+      "candidate_pairs_per_s": 342.3685050504646,
+      "request_latency_ms_p50": 361.9161704999989,
+      "request_latency_ms_p95": 366.5764232999999,
+      "request_latency_ms_min": 57.75913400000121,
+      "request_latency_ms_max": 367.0194379999998,
+      "model_batcher_calls": 2,
+      "requests_per_batcher_call": 16.0,
+      "completed_requests_delta": 32,
+      "latency_scope": "HTTP SDK call, excluding client semaphore wait; includes server queue and inference"
+    }
+  ],
+  "server_log": "server-results.server.log",
+  "batching_note": "model_batches counts scheduler calls, not individual encoder forward chunks",
+  "health_after_startup": {
+    "status": "ready",
+    "serving_runtime": "granian-rust",
+    "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+    "backend": "torch",
+    "cache_size": 0,
+    "temperature": 4.136820402388508,
+    "max_state_tokens": 2048,
+    "max_action_tokens": 768,
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "head_dtype": "float32",
+    "strict": false,
+    "max_batch_tokens": 8192,
+    "max_batch_size": 32,
+    "model_revision": "785d530221c990671f29976902540101bb9c7647",
+    "verified": true,
+    "queued_requests": 0,
+    "completed_requests": 0,
+    "model_batches": 0
+  },
+  "startup_to_ready_s": 12.749957202000001,
+  "checks": {
+    "all_three_question_types": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "answers": {
+        "route": {
+          "type": "choice",
+          "choice": "cards",
+          "probabilities": {
+            "cards": 0.8173832922033145,
+            "transfers": 0.024508498687310896,
+            "cash": 0.02616473522167271,
+            "other": 0.1319434738877019
+          },
+          "confidence": 0.8173832922033145,
+          "scores": {
+            "cards": -1.1179389953613281,
+            "transfers": -15.62613296508789,
+            "cash": -15.355615615844727,
+            "other": -8.66240119934082
+          }
+        },
+        "urgent": {
+          "type": "noul",
+          "noul": 0.2549496617556523,
+          "probabilities": {
+            "false": 0.7450503382443476,
+            "true": 0.2549496617556523
+          },
+          "confidence": 0.7450503382443476,
+          "scores": {
+            "false": 4.559534549713135,
+            "true": 0.12326765805482864
+          }
+        },
+        "priority": {
+          "type": "score",
+          "score": 1.3292334118054616,
+          "probabilities": {
+            "0": 0.0029276603469410643,
+            "1": 0.6649112675006562,
+            "2": 0.33216107215240265
+          },
+          "confidence": 0.6649112675006562,
+          "scores": {
+            "0": -15.137070655822754,
+            "1": 7.307041645050049,
+            "2": 4.435949325561523
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 334,
+        "output_tokens": 0,
+        "total_tokens": 334,
+        "cached_pairs": 0
+      },
+      "temperature": 4.136820402388508,
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "latency_ms": 3755.6038860000012
+    },
+    "pydantic_ai_output": {
+      "route": "cards",
+      "urgent": false
+    },
+    "pydantic_ai_output_type_valid": true,
+    "rank_endpoint_valid": true,
+    "missing_key_status": 401,
+    "overlong_state_status": 422,
+    "accuracy_evaluated": false
+  },
+  "warmup_requests": 3,
+  "health_after_measurement": {
+    "status": "ready",
+    "serving_runtime": "granian-rust",
+    "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+    "backend": "torch",
+    "cache_size": 0,
+    "temperature": 4.136820402388508,
+    "max_state_tokens": 2048,
+    "max_action_tokens": 768,
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "head_dtype": "float32",
+    "strict": false,
+    "max_batch_tokens": 8192,
+    "max_batch_size": 32,
+    "model_revision": "785d530221c990671f29976902540101bb9c7647",
+    "verified": true,
+    "queued_requests": 0,
+    "completed_requests": 102,
+    "model_batches": 49
+  },
+  "simple_api": {
+    "passed": true,
+    "first_result": "billing",
+    "second_result": "technical",
+    "first_call_including_load_s": 9.876531795999998,
+    "warm_decide_call_s": 0.02334669599999728,
+    "ranking": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "ranked": [
+        {
+          "rank": 1,
+          "candidate": "0",
+          "text": "billing",
+          "score": -4.178100109100342,
+          "probability": 0.9804118154565832
+        },
+        {
+          "rank": 2,
+          "candidate": "1",
+          "text": "technical",
+          "score": -20.36566925048828,
+          "probability": 0.019588184543416823
+        }
+      ],
+      "usage": {
+        "input_tokens": 32,
+        "output_tokens": 0,
+        "total_tokens": 32,
+        "cached_pairs": 0
+      },
+      "temperature": 4.136820402388508,
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "latency_ms": 198.1146700000025
+    },
+    "engine": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "backend": "torch",
+      "cache_size": 0,
+      "temperature": 4.136820402388508,
+      "max_state_tokens": 2048,
+      "max_action_tokens": 768,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "head_dtype": "float32",
+      "strict": false,
+      "max_batch_tokens": 8192,
+      "max_batch_size": 32,
+      "model_revision": "785d530221c990671f29976902540101bb9c7647",
+      "verified": true
+    },
+    "native_pydantic_ai_local": {
+      "passed": true,
+      "output": "billing",
+      "warm_agent_call_s": 0.1541170980000004,
+      "provider_url": "local://gemmadecision",
+      "provider_details": {
+        "confidence": {
+          "response": 0.9885687139371604
+        },
+        "probabilities": {
+          "response": {
+            "billing": 0.9885687139371604,
+            "technical": 0.01143128606283964
+          }
+        },
+        "scores": {},
+        "probabilities_source": "softmax_scores",
+        "confidence_note": "Ranking probabilities; validate calibration on your own data."
+      },
+      "shared_engine_identity_unchanged": true
+    },
+    "accuracy_evaluated": false
+  },
+  "total_elapsed_s": 35.509576861
+}

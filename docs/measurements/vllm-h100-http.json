@@ -1,0 +1,298 @@
+{
+  "status": "passed",
+  "created_at": "2026-09-27T10:34:26.139443+00:00",
+  "runtime": {
+    "python": "3.12.3",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+    "gemmadecision": null,
+    "granian": "2.8.3",
+    "torch": "2.13.0+cu130",
+    "transformers": "5.17.0",
+    "vllm": "0.30.0",
+    "pydantic-ai-slim": "2.51.0",
+    "httpx": "0.28.1",
+    "gpu_inventory": [
+      "NVIDIA H100 80GB HBM3, 580.95.05, 81559 MiB"
+    ]
+  },
+  "backend": "vllm",
+  "command": [
+    "python",
+    "-m",
+    "gemmadecision.cli",
+    "serve",
+    "--model-path",
+    "MODEL_DIR",
+    "--device",
+    "cuda",
+    "--port",
+    "18700",
+    "--backend",
+    "vllm",
+    "--cache-size",
+    "0",
+    "--batch-wait-ms",
+    "1",
+    "--max-batch-size",
+    "32"
+  ],
+  "model_source": "MODEL_DIR",
+  "cache_size": 0,
+  "batch_wait_ms": 1,
+  "max_batch_size": 32,
+  "max_batch_tokens": 8192,
+  "accuracy_evaluated": false,
+  "authentication": "random ephemeral bearer key, never written to report",
+  "measurements": [
+    {
+      "concurrency": 1,
+      "requests": 32,
+      "candidate_pairs": 128,
+      "input_tokens_including_repeated_state": 5416,
+      "cached_pairs": 0,
+      "elapsed_s": 1.5150376290000054,
+      "requests_per_s": 21.121587601174944,
+      "candidate_pairs_per_s": 84.48635040469978,
+      "request_latency_ms_p50": 45.64897000000201,
+      "request_latency_ms_p95": 56.10913290000639,
+      "request_latency_ms_min": 43.44772999999691,
+      "request_latency_ms_max": 57.278682999992725,
+      "model_batcher_calls": 32,
+      "requests_per_batcher_call": 1.0,
+      "completed_requests_delta": 32,
+      "latency_scope": "HTTP SDK call, excluding client semaphore wait; includes server queue and inference"
+    },
+    {
+      "concurrency": 8,
+      "requests": 32,
+      "candidate_pairs": 128,
+      "input_tokens_including_repeated_state": 5416,
+      "cached_pairs": 0,
+      "elapsed_s": 0.45641346200000044,
+      "requests_per_s": 70.11186712104467,
+      "candidate_pairs_per_s": 280.44746848417867,
+      "request_latency_ms_p50": 113.98175450000281,
+      "request_latency_ms_p95": 124.41482229999252,
+      "request_latency_ms_min": 48.02211300000181,
+      "request_latency_ms_max": 126.43978300002345,
+      "model_batcher_calls": 8,
+      "requests_per_batcher_call": 4.0,
+      "completed_requests_delta": 32,
+      "latency_scope": "HTTP SDK call, excluding client semaphore wait; includes server queue and inference"
+    },
+    {
+      "concurrency": 32,
+      "requests": 32,
+      "candidate_pairs": 128,
+      "input_tokens_including_repeated_state": 5544,
+      "cached_pairs": 0,
+      "elapsed_s": 0.28632362600001215,
+      "requests_per_s": 111.7616469414181,
+      "candidate_pairs_per_s": 447.0465877656724,
+      "request_latency_ms_p50": 276.59070299998234,
+      "request_latency_ms_p95": 282.13342995000517,
+      "request_latency_ms_min": 89.02169999998932,
+      "request_latency_ms_max": 282.29464800000414,
+      "model_batcher_calls": 2,
+      "requests_per_batcher_call": 16.0,
+      "completed_requests_delta": 32,
+      "latency_scope": "HTTP SDK call, excluding client semaphore wait; includes server queue and inference"
+    }
+  ],
+  "server_log": "server-results.server.log",
+  "batching_note": "model_batches counts scheduler calls, not individual encoder forward chunks",
+  "health_after_startup": {
+    "status": "ready",
+    "serving_runtime": "granian-rust",
+    "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+    "backend": "vllm",
+    "cache_size": 0,
+    "temperature": 4.136820402388508,
+    "max_state_tokens": 2048,
+    "max_action_tokens": 768,
+    "vllm_version": "0.30.0",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "head_device": "cpu",
+    "head_dtype": "float32",
+    "pooling_type": "LAST",
+    "normalization": "float32_after_pooling",
+    "context_limit": 3072,
+    "prefix_caching": false,
+    "model_revision": "785d530221c990671f29976902540101bb9c7647",
+    "verified": true,
+    "queued_requests": 0,
+    "completed_requests": 0,
+    "model_batches": 0
+  },
+  "startup_to_ready_s": 62.420137823000005,
+  "checks": {
+    "all_three_question_types": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "answers": {
+        "route": {
+          "type": "choice",
+          "choice": "cards",
+          "probabilities": {
+            "cards": 0.8216023096492325,
+            "transfers": 0.02476313430266723,
+            "cash": 0.026322632087462206,
+            "other": 0.12731192396063812
+          },
+          "confidence": 0.8216023096492325,
+          "scores": {
+            "cards": -1.1303789615631104,
+            "transfers": -15.617112159729004,
+            "cash": -15.364463806152344,
+            "other": -8.843961715698242
+          }
+        },
+        "urgent": {
+          "type": "noul",
+          "noul": 0.2576204300029682,
+          "probabilities": {
+            "false": 0.7423795699970318,
+            "true": 0.2576204300029682
+          },
+          "confidence": 0.7423795699970318,
+          "scores": {
+            "false": 4.544091701507568,
+            "true": 0.16579118371009827
+          }
+        },
+        "priority": {
+          "type": "score",
+          "score": 1.333615933281818,
+          "probabilities": {
+            "0": 0.002901199523831955,
+            "1": 0.6605816676705178,
+            "2": 0.33651713280565015
+          },
+          "confidence": 0.6605816676705178,
+          "scores": {
+            "0": -15.325399398803711,
+            "1": 7.129247188568115,
+            "2": 4.339078903198242
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 334,
+        "output_tokens": 0,
+        "total_tokens": 334,
+        "cached_pairs": 0
+      },
+      "temperature": 4.136820402388508,
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "latency_ms": 73.21720399997389
+    },
+    "pydantic_ai_output": {
+      "route": "cards",
+      "urgent": false
+    },
+    "pydantic_ai_output_type_valid": true,
+    "rank_endpoint_valid": true,
+    "missing_key_status": 401,
+    "overlong_state_status": 422,
+    "accuracy_evaluated": false
+  },
+  "warmup_requests": 3,
+  "health_after_measurement": {
+    "status": "ready",
+    "serving_runtime": "granian-rust",
+    "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+    "backend": "vllm",
+    "cache_size": 0,
+    "temperature": 4.136820402388508,
+    "max_state_tokens": 2048,
+    "max_action_tokens": 768,
+    "vllm_version": "0.30.0",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "head_device": "cpu",
+    "head_dtype": "float32",
+    "pooling_type": "LAST",
+    "normalization": "float32_after_pooling",
+    "context_limit": 3072,
+    "prefix_caching": false,
+    "model_revision": "785d530221c990671f29976902540101bb9c7647",
+    "verified": true,
+    "queued_requests": 0,
+    "completed_requests": 102,
+    "model_batches": 49
+  },
+  "simple_api": {
+    "passed": true,
+    "first_result": "billing",
+    "second_result": "technical",
+    "first_call_including_load_s": 10.71267967,
+    "warm_decide_call_s": 0.017516731000000618,
+    "ranking": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "ranked": [
+        {
+          "rank": 1,
+          "candidate": "0",
+          "text": "billing",
+          "score": -4.178100109100342,
+          "probability": 0.9804118154565832
+        },
+        {
+          "rank": 2,
+          "candidate": "1",
+          "text": "technical",
+          "score": -20.36566925048828,
+          "probability": 0.019588184543416823
+        }
+      ],
+      "usage": {
+        "input_tokens": 32,
+        "output_tokens": 0,
+        "total_tokens": 32,
+        "cached_pairs": 0
+      },
+      "temperature": 4.136820402388508,
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "latency_ms": 169.77471199999172
+    },
+    "engine": {
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "backend": "torch",
+      "cache_size": 0,
+      "temperature": 4.136820402388508,
+      "max_state_tokens": 2048,
+      "max_action_tokens": 768,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "head_dtype": "float32",
+      "strict": false,
+      "max_batch_tokens": 8192,
+      "max_batch_size": 32,
+      "model_revision": "785d530221c990671f29976902540101bb9c7647",
+      "verified": true
+    },
+    "native_pydantic_ai_local": {
+      "passed": true,
+      "output": "billing",
+      "warm_agent_call_s": 0.14082161099997847,
+      "provider_url": "local://gemmadecision",
+      "provider_details": {
+        "confidence": {
+          "response": 0.9885687139371604
+        },
+        "probabilities": {
+          "response": {
+            "billing": 0.9885687139371604,
+            "technical": 0.01143128606283964
+          }
+        },
+        "scores": {},
+        "probabilities_source": "softmax_scores",
+        "confidence_note": "Ranking probabilities; validate calibration on your own data."
+      },
+      "shared_engine_identity_unchanged": true
+    },
+    "accuracy_evaluated": false
+  },
+  "total_elapsed_s": 81.868308141
+}

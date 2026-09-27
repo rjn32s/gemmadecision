@@ -170,5 +170,5 @@ are separate reproducible artifacts. `gemmadecision doctor` reports installed
 backends without loading weights.
 
 Code: Apache-2.0. Weights: separate Gemma terms. Dependency licenses and CLM schema
-attribution are in [NOTICE](NOTICE). This package is not affiliated with Google,
+attribution are in [NOTICE](../NOTICE). This package is not affiliated with Google,
 PydanticAI, vLLM, Granian, CLM or the JevBench maintainers.

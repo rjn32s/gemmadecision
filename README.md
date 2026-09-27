@@ -55,7 +55,7 @@ print(result.output)
 
 This uses PydanticAI's native decision-model interface. Boolean, enum, rubric
 and finite Pydantic fields are supported.
-[More PydanticAI examples](docs/pydantic_ai.md).
+[More PydanticAI examples](https://github.com/rjn32s/gemmadecision/blob/main/docs/pydantic_ai.md).
 
 ## Serve it
 
@@ -82,10 +82,10 @@ use `GemmaDecisionModel()` instead of `.local()`.
 
 ## More control when you need it
 
-- [Hardware settings, offline use, HTTP API and batching](docs/advanced.md)
-- [vLLM backend for Linux/CUDA](docs/vllm.md)
-- [Performance measurements and reproduction](docs/performance.md)
-- [Docker and releases](docs/releasing.md)
+- [Hardware settings, offline use, HTTP API and batching](https://github.com/rjn32s/gemmadecision/blob/main/docs/advanced.md)
+- [vLLM backend for Linux/CUDA](https://github.com/rjn32s/gemmadecision/blob/main/docs/vllm.md)
+- [Performance measurements and reproduction](https://github.com/rjn32s/gemmadecision/blob/main/docs/performance.md)
+- [Docker and releases](https://github.com/rjn32s/gemmadecision/blob/main/docs/releasing.md)
 
 The default uses batched PyTorch for model computation and Rust for HTTP
 serving. vLLM is optional; no Rust compiler is needed to install the package.
@@ -96,4 +96,4 @@ of correctness. Maximums are 2,048 state/question tokens, 768 tokens per choice
 and 64 choices. See the [model card](https://huggingface.co/rajan2k/GemmaDecision-270M)
 for evaluation and limitations.
 
-Code: Apache-2.0. Model weights: separate Gemma terms. See [NOTICE](NOTICE).
+Code: Apache-2.0. Model weights: separate Gemma terms. See [NOTICE](https://github.com/rjn32s/gemmadecision/blob/main/NOTICE).

@@ -1,0 +1,32 @@
+{
+  "format": "gemmadecision-vllm-runtime-notes-v1",
+  "validation_image": "vllm/vllm-openai:v0.30.0",
+  "validation_launcher_numpy_pin": "2.4.6",
+  "image_dependency_warnings": [
+    "The validation launcher pinned NumPy 2.4.6. Image-installed mistral-common requires NumPy below 2.4; image-installed lmcache requires NumPy at most 2.2.6. These optional image components are not used by this Gemma pooling path."
+  ],
+  "validation_scope": "Backend and real HTTP checks passed in the recorded image; the extra image packages were not compatibility-tested.",
+  "fresh_package_resolution": {
+    "status": "passed",
+    "target_platform": "x86_64-unknown-linux-gnu",
+    "python_version": "3.12",
+    "extra": "vllm",
+    "package_count": 204,
+    "resolver_command": "uv pip compile --python-platform x86_64-unknown-linux-gnu --python-version 3.12 --extra vllm pyproject.toml",
+    "resolution_file_sha256": "43462b3772f8aad0a3a91d5ee1f2746b8bd2409350c12198aa11ca1e43367a74",
+    "selected_versions": {
+      "numpy": "2.3.5",
+      "mistral-common": "1.12.0",
+      "numba": "0.65.0",
+      "torch": "2.13.0",
+      "vllm": "0.30.0",
+      "transformers": "5.17.0",
+      "fastapi": "0.136.3",
+      "starlette": "1.7.0",
+      "pydantic-ai-slim": "2.51.0"
+    },
+    "lmcache_in_package_dependency_tree": false,
+    "scope": "Dependency resolution only; this exact fresh installation was not GPU-tested."
+  },
+  "recommendation": "Install the extra in a clean environment and let dependencies resolve; do not force the validation image NumPy override."
+}

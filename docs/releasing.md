@@ -50,7 +50,7 @@ PyPI login is still required, the package is built and release-ready but is
 2. Commit and push the release source, then tag that commit `v0.1.0` (or the
    matching next version). Never move an existing release tag.
 3. Publish the GitHub release for that tag. Alternatively run **Publish to
-   PyPI** manually and supply the existing tag. Do one or the other for a given
+   PyPI** manually from that tag and supply the same existing tag. The `pypi` environment accepts only `v*` tags, so a manual dispatch from `main` is refused. Do one or the other for a given
    version, since PyPI will reject a duplicate distribution upload.
 4. The workflow checks that the tag matches `pyproject.toml`, runs tests,
    builds the distributions, validates metadata, and uploads via OIDC with

@@ -1,0 +1,11 @@
+{
+  "backend": "torch",
+  "run_name": "torch-http-02",
+  "statuses": {
+    "server": 0
+  },
+  "function_seconds": 36.26216818899999,
+  "estimated_function_usd": 0.043305731738031365,
+  "rate_usd_per_second": 0.0011942400000000003,
+  "estimate_scope": "Function GPU+reserved CPU/RAM, excluding startup/storage/transfer"
+}

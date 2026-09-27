@@ -1,14 +1,21 @@
 # GemmaDecision on vLLM
 
 The optional backend targets **vLLM 0.30.0 on Linux with a BF16-capable CUDA
-GPU**. Its CPU fallback is the default PyTorch backend. vLLM has a substantial
-installation and startup cost; for a 270M model and one request at a time it is
-not automatically faster. Choose a backend using the measured latency for
-your own candidate counts and request concurrency.
+GPU**. It has passed real H100 inference and Granian HTTP checks, including
+PydanticAI requests. Use the default PyTorch backend for CPU and MPS.
 
-The vLLM backend is **experimental until GPU parity and performance have been
-measured for your deployment**. The unit tests validate packaging and the
-pooling contract; they do not prove GPU kernel equivalence.
+**Batched PyTorch remains the recommended default.** In the same H100/Torch
+2.13.0 experiment, four short candidates took 16.64 ms with batched PyTorch and
+43.03 ms with vLLM; 32 took 18.93 ms and 56.85 ms respectively. These are warm
+backend medians, including tokenization and the head, with five measured
+repeats. vLLM initialization took 68.56 seconds with existing local weights.
+See the [complete measurements](performance.md#vllm-validation-on-h100).
+
+On 96 candidate pairs across 12 unlabeled cases, vLLM chose the same top
+candidate as the frozen reference in all 12 cases. Scores were **not
+equivalent**: maximum absolute score difference was 0.317932, and maximum
+derived-probability difference was 0.00873809. Validate your deployment's
+inputs and near ties; this small agreement check is not an accuracy benchmark.
 
 ```bash
 pip install 'gemmadecision[vllm]'
@@ -19,7 +26,10 @@ The package downloads the pinned GemmaDecision v4 model, creates an
 encoder-only view in its cache, and serves the usual ranking API. Use a single
 server worker per GPU: multiple workers instantiate independent model engines.
 vLLM 0.30.0 pins PyTorch 2.13.0; install this extra in its own environment rather
-than forcing another CUDA PyTorch version into that environment.
+than forcing another CUDA PyTorch version into that environment. A clean Linux
+Python 3.12 dependency resolution passed with NumPy 2.3.5; let the resolver
+choose compatible dependencies. The tested Docker image's optional-package
+conflicts are disclosed in [runtime notes](measurements/vllm-runtime-notes.json).
 
 For direct backend use with a complete local model:
 
@@ -65,9 +75,10 @@ The implementation uses vLLM's
 
 The small head runs on CPU and receives only 640 values per candidate. The
 decoder runs on CUDA. This avoids coupling the package to internal vLLM worker
-classes. Scores can differ slightly from the reference because GPU kernels and
-batch shapes differ; near-tied candidates can change order. No quantization is
-enabled. The package does not apply an unvalidated probability calibration.
+classes. GPU kernels and batch shapes differ; near-tied candidates can change
+order. No quantization is enabled. This backend returns raw scores. The public
+typed API derives probabilities using the existing fixed external temperature;
+its calibration should be checked on the intended application data.
 
 vLLM's
 [pooling weight adapter](https://github.com/vllm-project/vllm/blob/v0.30.0/vllm/model_executor/models/adapters.py)
