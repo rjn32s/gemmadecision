@@ -64,8 +64,10 @@ software versions. See [measured numerical agreement](../performance.md).
 
 ## PydanticAI field constraints
 
-`GemmaDecisionModel` uses PydanticAI's decision-model translation. These shapes
-are supported by the tested PydanticAI 2.51 integration:
+`GemmaDecisionModel` uses PydanticAI's decision-model translation. These field
+shapes are supported inside a Pydantic output model by the tested PydanticAI
+2.51 integration. Simple types such as `bool` and `Literal` can also be used
+directly as the agent's `output_type`:
 
 | Output shape | Translation / constraint |
 |---|---|
@@ -82,6 +84,8 @@ are supported by the tested PydanticAI 2.51 integration:
 A rubric returned through the native typed model is rounded to a valid level
 (half values round upward). The wire `ScoreAnswer.score` retains the fractional
 expectation. Native decision metadata records this difference.
+Put a described numeric rubric in a Pydantic model field: a bare union passed
+as `output_type` can instead be interpreted as separate output routes.
 
 Expanded questions still share the package's **32-question and 256-pair**
 limits. A list with many alternatives can consume multiple question slots;
