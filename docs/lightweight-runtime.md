@@ -12,21 +12,18 @@ establish a universal speedup or accuracy on a new task.
 ## Install or upgrade
 
 ```bash
-python -m pip install --upgrade gemmadecision
+python -m pip install --upgrade gemmadecision==0.2.0
 ```
 
-In a notebook, use `%pip install --upgrade gemmadecision` in a cell, then
-**restart the kernel** before importing the package again. This removes the
-already imported 0.1.0 modules from the running Python process.
+In a notebook, run `%pip install --upgrade gemmadecision==0.2.0` in a cell,
+then **restart the runtime/kernel** before running the code below. Installing
+the upgrade alone does not replace already imported 0.1.0 modules in the
+running Python process.
 
 ```python
 from gemmadecision import decide
 
-team = decide(
-    "The same payment appears twice on my statement.",
-    choices={"billing": "Charges and refunds", "technical": "App failures"},
-)
-print(team)
+print(decide("I was charged twice", choices=["billing", "technical"]))
 ```
 
 | Add this capability | Install |
@@ -88,6 +85,43 @@ that number is not an isolated ONNX memory measurement or minimum.
 The package verifies the pinned export manifest and every listed inference
 file. The source weights remain model revision
 `785d530221c990671f29976902540101bb9c7647`; conversion does not retrain them.
+
+## Public PyPI installation
+
+After publication, a fresh Python 3.13.3 environment on Modal, with four CPU
+cores and 8 GiB RAM, installed **`gemmadecision==0.2.0` directly from public
+PyPI**. The exact example above returned `billing`. No Torch, torchvision,
+torchaudio, or Transformers packages were installed or imported, and both
+`decide()` and `rank()` worked again in a new process using the model cache
+offline.
+
+| Measurement | Result |
+|---|---:|
+| Ordinary pip install, including dependency resolution | 7.5920 s |
+| Compressed package wheels, including dependencies | 54,019,036 bytes (~54 MB) |
+| Published GemmaDecision wheel within that total | 47,631 bytes |
+| First exact example, including model download and loading | 6.669 s |
+| Model loading in a new process from the cache, offline | 4.090 s |
+| Warm `decide()` median for two descriptive choices, 34/35 joint tokens | 83.49 ms |
+
+The **573 MB model download is separate** from the package archives. Install
+time excludes virtual-environment creation and model download. The warm
+median covers ten calls after three warmups, using the descriptive two-choice
+fixture recorded in the report rather than the short first-call example.
+These are functional and latency observations from one run, not accuracy
+measurements or a speed comparison with the separate hosts used below.
+
+The [public installation report](measurements/pypi-0.2.0-minimal.json) records
+the public package URL, dependency versions, exact samples, and verified model
+pins. It retains the shared harness's candidate-prefixed measurement keys;
+`installation_source: public_pypi` and the artifact URL identify this run.
+The published wheel SHA256 is
+`3b72a2bd3f0831ef623a96d5f9580c7829cbc0bae48a7af93d937029b9afae1d`.
+Only two temporary artifact-path fields were removed from the report copy,
+with its original SHA256 recorded in the provenance entry.
+All **18 runtime Python files** in the published wheel were also verified
+byte-for-byte against the candidate wheel and committed source; see the
+[wheel/source comparison](measurements/pypi-0.2.0-source-verification.json).
 
 ## Fresh installation of the candidate wheel
 
