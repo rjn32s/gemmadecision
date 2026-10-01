@@ -15,9 +15,9 @@ def main():
     serve.add_argument('--host', default='127.0.0.1')
     serve.add_argument('--port', type=int, default=8700)
     serve.add_argument('--model-path', type=str)
-    serve.add_argument('--backend', choices=['torch', 'vllm'], default='torch')
+    serve.add_argument('--backend', choices=['auto', 'onnx', 'torch', 'vllm'], default='auto')
     serve.add_argument('--device', choices=['auto', 'cpu', 'cuda', 'mps'], default='auto')
-    serve.add_argument('--strict', action='store_true', help='Singleton reference mode; slower, useful for parity')
+    serve.add_argument('--strict', action='store_true', help='Score one candidate per forward; Torch matches the singleton reference execution shape')
     serve.add_argument('--offline', action='store_true')
     serve.add_argument('--max-batch-tokens', type=int, default=8192)
     serve.add_argument('--max-batch-size', type=int, default=32)
@@ -30,16 +30,17 @@ def main():
     serve.add_argument('--allow-unauthenticated', action='store_true', help='Explicitly allow non-loopback HTTP without an API key')
     download = sub.add_parser('download', help='Download immutable weights for subsequent offline use')
     download.add_argument('--output', type=Path)
+    download.add_argument('--backend', choices=['onnx', 'torch', 'vllm'], default='onnx')
     sub.add_parser('doctor', help='Print installed optional dependencies without loading a model')
     args = parser.parse_args()
     if args.command == 'download':
         from .model import download_model
-        print(download_model(local_dir=args.output))
+        print(download_model(local_dir=args.output, backend=args.backend))
         return
     if args.command == 'doctor':
         from importlib.metadata import version, PackageNotFoundError
         result = {'gemmadecision': __version__, 'python': sys.version.split()[0]}
-        for name in ['granian', 'torch', 'transformers', 'vllm', 'pydantic-ai-slim']:
+        for name in ['onnxruntime', 'tokenizers', 'granian', 'torch', 'transformers', 'vllm', 'pydantic-ai-slim']:
             try:
                 result[name] = version(name)
             except PackageNotFoundError:

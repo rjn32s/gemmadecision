@@ -10,9 +10,12 @@ Use Python **3.11 or newer** in your application's environment:
 python -m pip install gemmadecision
 ```
 
-The standard install includes local inference, the HTTP server and PydanticAI.
-The model downloads on first inference, about 0.5 GB. CPU, CUDA and Apple MPS
-are selected automatically. Model operations then run locally.
+The standard install uses **ONNX Runtime on CPU**. It does not install Torch,
+Transformers, the HTTP server, or PydanticAI. The pinned runtime model downloads
+on first inference; later calls run locally with the loaded model.
+
+For a notebook previously using 0.1.0, run `python -m pip install -U gemmadecision`
+and restart the kernel. See the [notebook recovery guide](guides/troubleshooting.md#upgrade-a-010-notebook).
 
 ## 2. Choose an option
 
@@ -43,7 +46,8 @@ The return value is one of the dictionary keys, as a string. A list also works:
 
 Keep the process alive when making several decisions: the default engine loads
 once and is shared by `decide()`, `rank()` and local PydanticAI models. The first
-call is slower. [Measured CPU latency](cpu-latency.md).
+call is slower. The [historical CPU measurements](cpu-latency.md) describe the
+0.1.0 Torch runtime, not the current ONNX default.
 
 ## 3. Inspect the ranking
 
@@ -111,6 +115,12 @@ position across the ordered levels, not necessarily the most likely level.
 
 ## 5. Use PydanticAI
 
+Install the integration when you need typed agents:
+
+```bash
+python -m pip install 'gemmadecision[pydantic-ai]'
+```
+
 ```python
 from typing import Literal
 from pydantic import BaseModel, Field
@@ -136,6 +146,7 @@ separate HTTP server. See [PydanticAI](pydantic_ai.md) for async calls and suppo
 In one terminal:
 
 ```bash
+python -m pip install 'gemmadecision[serve]'
 gemmadecision serve
 ```
 

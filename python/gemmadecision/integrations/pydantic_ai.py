@@ -1,4 +1,4 @@
-"""Native PydanticAI decision-model support included with ``gemmadecision``.
+"""Native PydanticAI decision-model support via ``gemmadecision[pydantic-ai]``.
 
 GemmaDecision ranks supplied alternatives. PydanticAI's DecisionModel translates
 finite typed outputs into those alternatives; it does not ask this model to
@@ -43,7 +43,7 @@ try:
     from pydantic_ai.usage import RequestUsage
 except ImportError as exc:
     raise ImportError(
-        "Native PydanticAI support requires a complete gemmadecision install "
+        "Install the optional integration: pip install 'gemmadecision[pydantic-ai]' "
         "(pydantic-ai-slim >= 2.51, < 3)."
     ) from exc
 

@@ -6,13 +6,14 @@ Granian's **Rust HTTP runtime**, bounded request queues and batched inference.
 Importing the client does not load PyTorch or download weights.
 
 ```sh
-pip install gemmadecision
+pip install 'gemmadecision[serve]'
 gemmadecision serve
 ```
 
-The first server start downloads the pinned public model (about 0.5 GB). Subsequent
-starts use the cache. CPU, CUDA and Apple MPS are selected automatically; override
-with `--device cpu`, `--device cuda`, or `--device mps`. Model inference stays local.
+The first server start downloads the pinned CPU ONNX runtime model. Subsequent
+starts use the cache. The default `auto` path uses ONNX on CPU. For native Torch
+or GPU execution, install `gemmadecision[serve,torch]`, then select
+`--backend torch`, `--device cuda`, or `--device mps`. Inference stays local.
 The client and native PydanticAI integration work without an external LLM API key.
 
 ## Python
@@ -40,7 +41,8 @@ Clients reuse HTTP connections and do not retry decisions automatically. Set
 
 ## PydanticAI, directly
 
-PydanticAI has a native decision-model interface: no chatbot shim is needed.
+Install `pip install 'gemmadecision[pydantic-ai]'` to use PydanticAI's native
+decision-model interface.
 
 ```python
 import asyncio
@@ -94,10 +96,13 @@ softmax transformation. For in-process inference use
 
 ## Serving choices
 
-- **Default:** Granian Rust HTTP + batched PyTorch. Length-bucketed candidate
+- **Default:** Granian Rust HTTP + CPU ONNX Runtime. Length-bucketed candidate
   batches, bounded cross-request microbatching, one model process, no generation.
-- **Reference:** `gemmadecision serve --strict --batch-wait-ms 0` scores each
-  candidate separately, matching the published numerical execution shape.
+- **Native Torch:** install `gemmadecision[serve,torch]`, then select
+  `--backend torch`. Explicit `--device cuda` or `--device mps` also selects Torch.
+- **Torch reference:** `gemmadecision serve --backend torch --strict --batch-wait-ms 0`
+  scores each candidate separately, matching the published Torch execution shape.
+  ONNX `--strict` also uses singleton batches, without promising identical kernels.
 - **vLLM:** `pip install 'gemmadecision[vllm]'` in a separate Linux CUDA environment,
   then `gemmadecision serve --backend vllm --device cuda`. See the exact dependency
   pins and evaluation status in [vLLM setup](vllm.md).
@@ -106,7 +111,7 @@ softmax transformation. For in-process inference use
 - **Docker:** see [release and container instructions](releasing.md).
 
 The serving process uses Rust for HTTP transport and Rust-backed Pydantic
-validation. Model tensor operations use PyTorch or vLLM's native CUDA kernels;
+validation. Model computation uses ONNX Runtime, native Torch, or optional vLLM;
 this is not an all-Rust reimplementation of Gemma. Granian supplies maintained
 binary wheels so users do not need to compile a new bespoke Rust server.
 
@@ -139,9 +144,10 @@ inference queue and one model instance per process.
 
 ## Model identity and limitations
 
-Package version `0.1.0` is separate from model version `v0.4.0`. Every backend
-uses immutable model revision `785d530221c990671f29976902540101bb9c7647` and verifies
-the encoder/head/config hashes. No executable Hugging Face code is downloaded
+Package version `0.2.0` is separate from model version `v0.4.0`. The source
+weights are pinned to `785d530221c990671f29976902540101bb9c7647`. Torch and vLLM
+verify those inference files; ONNX verifies a separately pinned manifest and
+export files derived from that source revision. No executable Hugging Face code is downloaded
 or enabled. The encoder was trained jointly with a scalar head; using stock
 Gemma token-generation logits would not serve this model.
 
@@ -158,7 +164,7 @@ actions. [Model evaluation and provenance](https://huggingface.co/rajan2k/GemmaD
 ```sh
 git clone https://github.com/rjn32s/gemmadecision.git
 cd gemmadecision
-pip install -e '.[test,pydantic-ai]'
+pip install -e '.[test,torch]'
 pytest
 python -m build
 twine check dist/*

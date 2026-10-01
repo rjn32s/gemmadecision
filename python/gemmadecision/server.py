@@ -10,6 +10,7 @@ from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
 from .batching import MicroBatcher, QueueFullError
 from .constants import MODEL_ID
+from . import __version__
 from .engine import DecisionEngine
 from .types import SystemOneRequest, SystemOneResponse, RankRequest, RankingResponse
 
@@ -67,7 +68,7 @@ def create_app(engine=None, *, config=None, api_key=None):
         finally:
             await app.state.batcher.close()
 
-    app = FastAPI(title='GemmaDecision', version='0.1.0', lifespan=lifespan,
+    app = FastAPI(title='GemmaDecision', version=__version__, lifespan=lifespan,
                   description='Typed local decisions. Probabilities are derived from frozen ranking scores.')
     app.add_middleware(BodyLimitMiddleware)
 

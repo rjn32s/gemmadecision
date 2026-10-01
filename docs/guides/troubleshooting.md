@@ -10,15 +10,53 @@ gemmadecision doctor
 `doctor` reports installed libraries without loading the model. Server logs
 appear in the terminal running `gemmadecision serve`.
 
+## Upgrade a 0.1.0 notebook
+
+Version 0.1.0 installed Torch and Transformers by default. In a notebook with
+preinstalled vision/audio packages, upgrading Torch alone can leave binary
+dependencies incompatible. An error such as `operator torchvision::nms does
+not exist`, followed by a failure to import `Gemma3TextModel`, can come from
+that dependency conflict even though this model only handles text.
+
+Version 0.2.0 uses ONNX Runtime on CPU by default. A plain install no longer
+installs or imports Torch, Transformers, torchvision, or torchaudio.
+
+1. In a notebook cell, run `%pip install --upgrade gemmadecision`.
+2. Restart the notebook kernel so it stops using already imported 0.1.0 modules.
+3. Run the local call again:
+
+```python
+from importlib.metadata import version
+from gemmadecision import decide
+
+print(version("gemmadecision"))  # Check that this is 0.2.0 or later.
+print(decide("I was charged twice", choices=["billing", "technical"]))
+```
+
+The new default avoids the Torch dependency chain; it does not repair unrelated
+Torch applications in the same environment. If you set `GEMMADECISION_MODEL_PATH`
+to an old native Torch directory, unset it to use the default ONNX download,
+or replace it with a complete ONNX directory. A legacy native directory still
+selects Torch for compatibility.
+
+For explicit native Torch or GPU use, install `gemmadecision[torch]`. Use a
+clean environment or match the installed Torch, torchvision, and torchaudio
+builds. Vision/audio packages are unnecessary for GemmaDecision: if nothing
+else in that environment uses the incompatible package, removing it is another
+option. Restart the kernel after dependency changes. The Torch backend preserves
+the original import error and adds repair guidance for recognized media failures.
+
 ## The first call is taking longer
 
-The first local call or server start downloads roughly 0.5 GB of model files
-and loads the inference runtime. GPU setup may also initialize kernels. Warm
-inference measurements exclude that work.
+The first local call or server start downloads the pinned runtime model files
+and loads the inference runtime. Optional GPU setup may also initialize kernels.
+Warm inference measurements exclude that work. Historical 0.1.0 download and
+latency measurements describe its Torch files, not the 0.2.0 ONNX default.
 
 Download explicitly to separate download progress from startup:
 
 ```bash
+python -m pip install 'gemmadecision[serve]'
 gemmadecision download --output ./model
 gemmadecision serve --model-path ./model --offline
 ```
@@ -77,7 +115,7 @@ bearer header. See [network serving](serving.md#connect-from-another-machine).
 Install and run through the same interpreter:
 
 ```bash
-python -m pip install gemmadecision
+python -m pip install 'gemmadecision[serve]'
 python -m gemmadecision.cli doctor
 python -m gemmadecision.cli serve --device cpu
 ```
@@ -87,19 +125,29 @@ import the package. In a notebook, install into the interpreter used by its
 kernel. The package supports Python 3.11 and later; the selected tensor backend
 must also provide compatible wheels for that Python version and platform.
 
-For CUDA errors, first confirm that PyTorch can see the GPU:
+The HTTP server requires the `serve` extra; PydanticAI requires `pydantic-ai`.
+A plain `pip install gemmadecision` is sufficient for local CPU decisions.
+
+For explicit CUDA use, install the `torch` extra and confirm that PyTorch can
+see the GPU:
 
 ```bash
 python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
 ```
 
-Use `--device cpu` to select CPU execution explicitly. The CPU Dockerfile
-installs CPU PyTorch, while the optional vLLM backend requires its own supported
-Linux/CUDA environment. See [deployment](deployment.md).
+Use `--backend onnx --device cpu` for the CPU runtime, or
+`--backend torch --device cuda` for native GPU execution. Merely attaching a
+GPU does not change the default ONNX backend. The CPU Dockerfile uses ONNX;
+the optional vLLM backend requires its own supported Linux/CUDA environment.
+See [deployment](deployment.md).
 
 ## PydanticAI rejects my output type
 
 The model selects among finite options. Start with a supported output type:
+
+```bash
+python -m pip install 'gemmadecision[pydantic-ai]'
+```
 
 ```python
 from typing import Literal

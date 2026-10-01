@@ -7,13 +7,14 @@ is enough. Both approaches use the same pinned model and decision format.
 ## Download once, then run offline
 
 ```bash
+python -m pip install 'gemmadecision[serve]'
 gemmadecision download --output ./model
 gemmadecision serve --model-path ./model --device cpu --offline
 ```
 
 Copy the complete model directory when moving to another machine. The package
-verifies the encoder, scalar head, configuration and tokenizer against the
-published revision. It does not require a Hugging Face token for these public
+verifies the CPU ONNX graph and runtime files against its pinned manifest.
+For Torch or vLLM, download native files with `--backend torch` or `--backend vllm`. It does not require a Hugging Face token for these public
 weights. `--offline` avoids a Hub lookup when using the existing cache;
 `--model-path` points directly to local files.
 
@@ -45,8 +46,9 @@ the command above publishes the port only on your host's loopback interface.
 
 Check `http://127.0.0.1:8700/ready` after the first download and load. Python
 clients launched from the same shell pick up the key automatically. The image
-already uses CPU PyTorch; GPU serving needs a CUDA-capable image and runtime.
-Adding `--gpus` does not change the CPU PyTorch wheel installed in this image.
+uses CPU ONNX Runtime without Torch. GPU serving needs the Torch or vLLM extra
+and a compatible GPU image/runtime. Adding `--gpus` does not change the
+backend or install those dependencies.
 
 ## Run a function on Modal
 
@@ -72,7 +74,7 @@ model_cache = modal.Volume.from_name(
 )
 image = (
     modal.Image.debian_slim(python_version="3.12")
-    .pip_install("gemmadecision==0.1.0")
+    .pip_install("gemmadecision==0.2.0")
     .env({"HF_HOME": "/cache/huggingface"})
 )
 
@@ -109,11 +111,13 @@ Run it on a CPU:
 modal run modal_app.py
 ```
 
-For an H100 run, add `gpu="H100",` to the `@app.function(...)` arguments and
-run the same command. The package detects CUDA inside the GPU container.
-Choose the hardware before launching: an H100 is an optional performance
-choice, and cloud compute and persistent storage follow your Modal plan's
-pricing. No remote resources are created merely by reading this example.
+This example uses CPU ONNX even if a GPU is attached. For GPU inference,
+install `gemmadecision[torch]==0.2.0` in the image, request the desired GPU,
+and use `DecisionEngine.from_pretrained(device="cuda")` inside the remote
+function. Reuse that engine for later requests. See the
+[serving guide](serving.md) for the equivalent explicit GPU server command.
+Cloud compute and persistent storage follow your Modal plan's pricing. No
+remote resources are created merely by reading this example.
 
 The first container start still downloads and loads weights. The Volume saves
 the download; a new container still loads the model into memory. Calls in a
@@ -136,10 +140,10 @@ gemmadecision serve --backend vllm --device cuda
 ```
 
 The [vLLM guide](../vllm.md) describes the pinned runtime, model export and
-measured score differences. Batched PyTorch remains the default based on the
-recorded backend measurements. vLLM support does not imply that every workload
-will run faster.
+historical GPU measurements and score differences. The current CPU default
+is ONNX; the recorded Torch/vLLM comparison does not measure it. vLLM support
+does not imply that every workload will run faster.
 
-For published CPU/GPU installation checks, see
+For the historical 0.1.0 CPU/GPU installation checks, see
 [installation validation](../installed-package-validation.md). For the exact
 measured hardware and workloads, see [performance](../performance.md).

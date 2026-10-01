@@ -1,4 +1,7 @@
-# Published package validation
+# Published package validation: 0.1.0
+
+This page preserves the checks of the 0.1.0 wheel. They do not verify the
+0.2.0 ONNX default or its installation dependencies.
 
 The public **gemmadecision 0.1.0** wheel passed functional checks in fresh
 Modal CPU and GPU environments on September 27, 2026. Both environments

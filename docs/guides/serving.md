@@ -1,14 +1,14 @@
 # Serve decisions over HTTP
 
 Run one model process and share it across your application. The server uses
-Granian for Rust HTTP serving and batched PyTorch for inference by default.
+Granian for Rust HTTP serving and ONNX Runtime on CPU for inference by default.
 
 ## Start the server
 
 Install the package in the environment that will run the server:
 
 ```bash
-python -m pip install gemmadecision
+python -m pip install 'gemmadecision[serve]'
 gemmadecision serve
 ```
 
@@ -23,12 +23,17 @@ gemmadecision serve --device cpu
 ```
 
 ```bash
+python -m pip install 'gemmadecision[serve,torch]'
 gemmadecision serve --device cuda
 ```
 
-On a supported Apple Silicon installation, use `--device mps`. Without a
-device argument, the package selects CUDA, then MPS, then CPU according to
-availability. CUDA requires a compatible NVIDIA driver and PyTorch build.
+After installing the Torch extra, use `--device mps` on a supported Apple
+Silicon installation. The default `--backend auto --device auto` uses ONNX on
+CPU; CUDA and MPS are explicit choices. CUDA requires a compatible NVIDIA
+driver and PyTorch build. `--backend torch` selects native Torch directly.
+
+For native PydanticAI clients, also install `gemmadecision[pydantic-ai]` in
+the client environment. Plain SDK clients are part of the base package.
 
 Check readiness after loading:
 
@@ -166,9 +171,9 @@ remain readable without an inference key.
 | `GET /docs` | Interactive API documentation |
 
 Start with the default batching settings. `--max-batch-size` limits candidate
-pairs per Torch forward, while `--batch-requests` limits requests grouped by
-the server scheduler. `--max-batch-tokens` bounds padded tokens in a Torch
-batch. The score cache is off unless you set `--cache-size`.
+pairs per ONNX/Torch forward, while `--batch-requests` limits requests grouped
+by the server scheduler. `--max-batch-tokens` bounds padded tokens in an
+ONNX/Torch batch. The score cache is off unless you set `--cache-size`.
 
 See [measured performance](../performance.md) before choosing concurrency,
 [deployment](deployment.md) for Docker and Modal, and

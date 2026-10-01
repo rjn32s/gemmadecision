@@ -2,7 +2,7 @@
 
 GemmaDecision chooses among alternatives you provide. It does not generate
 prose, extract arbitrary strings, or decide what tools your application is
-authorized to execute. This page describes the published 0.1.0 package contract.
+authorized to execute. This page describes the 0.2.0 package contract.
 
 ## Input limits
 
@@ -15,8 +15,8 @@ authorized to execute. This page describes the published 0.1.0 package contract.
 | Rendered state plus question instructions | 2,048 tokens |
 | Each candidate description | 768 tokens |
 | HTTP POST body | 2 MiB / 2,097,152 bytes |
-| Default Torch batch size | 32 joint inputs |
-| Default Torch batch budget | 8,192 padded tokens |
+| Default ONNX/Torch batch size | 32 joint inputs |
+| Default ONNX/Torch batch budget | 8,192 padded tokens |
 | Default server queue capacity | 128 waiting requests |
 | Default server request deadline | 60 seconds |
 
@@ -25,15 +25,15 @@ so nested state and structured instructions count toward the same 2,048-token
 state/question budget. Every candidate is concatenated with that state/question
 and a fixed separator, then checked against the backend's complete-input limit.
 The Torch encoder's larger architectural context does not increase the
-published state or candidate limits. vLLM uses a 3,072-token complete-input
-limit by default.
+published state or candidate limits. ONNX and vLLM use a 3,072-token
+complete-input limit by default.
 
 Text is never silently truncated. Invalid local requests raise validation
 errors; HTTP requests return 422. Candidate descriptions must be distinct and
 nonempty after rendering. For example, a request with five 64-option questions
 exceeds the 256-pair limit even though each question is individually valid.
 
-A single Torch joint input must fit the configured `max_batch_tokens`, since
+A single ONNX/Torch joint input must fit the configured `max_batch_tokens`, since
 even a one-element batch must respect that budget. The scheduler can split a
 larger group of valid inputs into multiple forwards. It does not treat the
 batch-token setting as a larger context window.
@@ -60,7 +60,9 @@ the index of the most probable level. Exact raw-score ties preserve input order.
 Batch shape and numeric kernels can introduce small floating-point differences.
 Torch `strict=True` preserves the published singleton batch shape for
 comparisons, but it does not promise bit-identical results across devices or
-software versions. See [measured numerical agreement](../performance.md).
+software versions. ONNX `strict=True` also scores singleton batches; it does
+not reproduce Torch kernels or guarantee identical scores. See the historical
+[Torch/vLLM numerical agreement checks](../performance.md).
 
 ## PydanticAI field constraints
 
@@ -105,8 +107,14 @@ answer. Keep tool authorization and side-effect policy in the application.
 
 ## Runtime and memory
 
-Python 3.11 or newer is required. The normal install includes Torch serving and
-PydanticAI. vLLM is optional and pinned to 0.30.0 for the supported pooling path.
+Python 3.11 or newer is required. The normal install uses CPU ONNX Runtime
+and the Hugging Face `tokenizers` library. Torch, Transformers, Granian/FastAPI,
+and PydanticAI are optional: install the `torch`, `serve`, or `pydantic-ai`
+extras as needed. vLLM is optional and pinned to 0.30.0 for the pooling path.
+
+The ONNX graph contains the encoder, normalized last-token pooling, and scalar
+head. It is an export of the pinned source model, not a separately trained
+model. Artifact format alone does not establish speed or prediction parity.
 
 Torch supports CPU, CUDA, and MPS. Its encoder uses BF16 on CUDA when supported,
 and FP32 otherwise; normalization and the scalar head are FP32. vLLM requires a
@@ -115,7 +123,7 @@ The published CPU and GPU measurements are hardware-specific, not a memory or
 latency guarantee for another machine.
 
 The server starts one model process. Its Rust HTTP layer does not replace the
-Torch/vLLM tensor computation. Cache entries store scores for exact complete
+ONNX/Torch/vLLM model computation. Cache entries store scores for exact complete
 joint inputs, never independent state and candidate embeddings. The cache is
 off by default.
 

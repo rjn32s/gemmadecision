@@ -32,6 +32,68 @@ FROZEN_FILES = {
 }
 
 
+def _optional_import_failure(error: Exception) -> str | None:
+    """Identify optional media imports, including Transformers' lazy wrappers.
+
+    Inspect actual exception names/frames, not a generic failure to load Gemma.
+    An unrelated model, device, or weight-loading error must stay unchanged.
+    """
+    optional = {"torchvision", "torchaudio", "librosa", "torchcodec", "soundfile", "soxr"}
+    seen: set[int] = set()
+    current: BaseException | None = error
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        name = getattr(current, "name", None)
+        if isinstance(name, str) and name.split(".")[0] in optional:
+            return name.split(".")[0]
+        frame = current.__traceback__
+        while frame is not None:
+            module = frame.tb_frame.f_globals.get("__name__", "").split(".")[0]
+            if module in optional:
+                return module
+            frame = frame.tb_next
+        # PyTorch's missing-operator exception may originate entirely inside
+        # torch's registration code; this namespace identifies torchvision.
+        if "operator torchvision::nms does not exist" in str(current):
+            return "torchvision"
+        current = current.__cause__ or current.__context__
+    return None
+
+
+def _explain_optional_import_failure(error: Exception) -> None:
+    package = _optional_import_failure(error)
+    if package is not None:
+        raise ImportError(
+            f"Transformers could not load the Gemma text encoder because the optional "
+            f"{package} installation is broken or incompatible. GemmaDecision does "
+            "not require vision or audio packages. Use a clean environment with "
+            "`python -m pip install 'gemmadecision[torch]'`, or repair that optional "
+            "package to match your existing Torch/NumPy installation. If this "
+            "environment does not need it, remove it with "
+            f"`python -m pip uninstall {package}`. Restart the Python process or "
+            "notebook kernel after changing installed packages. The original "
+            "import error is preserved below."
+        ) from error
+
+
+def _import_torch_dependencies():
+    try:
+        import torch
+        from safetensors.torch import load_file
+        from transformers import AutoModel, AutoTokenizer
+    except Exception as error:
+        _explain_optional_import_failure(error)
+        if isinstance(error, ModuleNotFoundError) and error.name in {
+            "torch", "safetensors", "safetensors.torch", "transformers"
+        }:
+            raise ImportError(
+                "Install the optional Torch backend: "
+                "python -m pip install 'gemmadecision[torch]'"
+            ) from error
+        raise
+    return torch, load_file, AutoModel, AutoTokenizer
+
+
 def verify_model_files(path: str | Path) -> None:
     """Verify the files consumed by inference against the pinned release."""
     root = Path(path)
@@ -125,14 +187,7 @@ class TorchBackend:
         head_file = self.config.get("head_file", "joint_head.safetensors")
         if not isinstance(head_file, str) or Path(head_file).name != head_file:
             raise ValueError("head_file must name a file in the model directory")
-        try:
-            import torch
-            from safetensors.torch import load_file
-            from transformers import AutoModel, AutoTokenizer
-        except ImportError as error:
-            raise ImportError(
-                "Install the local inference dependencies: pip install 'gemmadecision[serve]'"
-            ) from error
+        torch, load_file, AutoModel, AutoTokenizer = _import_torch_dependencies()
 
         self._torch = torch
         if device == "auto":
@@ -154,22 +209,31 @@ class TorchBackend:
             else torch.float32
         )
         self.dtype = str(dtype).removeprefix("torch.")
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            self.path, local_files_only=True, trust_remote_code=False
-        )
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                self.path, local_files_only=True, trust_remote_code=False
+            )
+        except Exception as error:
+            _explain_optional_import_failure(error)
+            raise
         # Last-token pooling below assumes right padding; do not inherit an
         # arbitrary tokenizer padding side from the calling environment.
         self.tokenizer.padding_side = "right"
         if self.tokenizer.pad_token_id is None:
             raise ValueError("The model tokenizer must define a padding token")
-        self.encoder = AutoModel.from_pretrained(
-            self.path,
-            local_files_only=True,
-            trust_remote_code=False,
-            use_safetensors=True,
-            dtype=dtype,
-            attn_implementation="sdpa",
-        ).to(self.device).eval().requires_grad_(False)
+        try:
+            self.encoder = AutoModel.from_pretrained(
+                self.path,
+                local_files_only=True,
+                trust_remote_code=False,
+                use_safetensors=True,
+                dtype=dtype,
+                attn_implementation="sdpa",
+            )
+        except Exception as error:
+            _explain_optional_import_failure(error)
+            raise
+        self.encoder = self.encoder.to(self.device).eval().requires_grad_(False)
         if self.encoder.config.hidden_size != hidden:
             raise ValueError("Scalar head width does not match the encoder hidden size")
         self.context_limit = getattr(self.encoder.config, "max_position_embeddings", None)

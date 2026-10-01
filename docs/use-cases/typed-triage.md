@@ -3,6 +3,12 @@
 Define the decisions as Pydantic fields. The native integration turns each
 field into a question and returns an instance of your output model.
 
+```bash
+pip install 'gemmadecision[pydantic-ai]'
+```
+
+The local model uses the shared CPU ONNX runtime by default.
+
 ```python
 from typing import Literal
 

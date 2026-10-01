@@ -73,8 +73,9 @@ and batching settings.
 connect to it. This is useful when several applications share a model or when
 inference belongs on another machine.
 
-Granian provides the Rust HTTP runtime. PyTorch or the optional vLLM backend
-performs model computation. The [serving guide](guides/serving.md) covers the
+The base package uses ONNX Runtime for CPU computation. The `serve` extra
+adds Granian, the Rust HTTP runtime; `pydantic-ai` adds typed agents. Native
+Torch and vLLM are optional backends for explicit hardware choices. The [serving guide](guides/serving.md) covers the
 queue, clients and authentication.
 
 ## What happens after a decision

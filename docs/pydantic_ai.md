@@ -3,7 +3,7 @@
 Start with in-process inference. Install the model runtime and integration:
 
 ```bash
-pip install gemmadecision
+pip install 'gemmadecision[pydantic-ai]'
 ```
 
 New to GemmaDecision? The [quickstart](quickstart.md) covers installation and
@@ -36,7 +36,9 @@ if __name__ == '__main__':
 
 The constructor does not download or load weights. The first request downloads
 the pinned model once and loads it; subsequent calls reuse it. This is the same
-process-local engine used by `gemmadecision.decide()` and `gemmadecision.rank()`.
+process-local CPU ONNX engine used by `gemmadecision.decide()` and
+`gemmadecision.rank()`. PydanticAI is optional; the base package keeps this
+framework out of a plain local install.
 The local model also supports `await router.run(...)`: loading and inference run
 in a worker thread, keeping the event loop responsive. Engine locks serialize
 tokenizer and model access. This path does not implement server microbatching.
@@ -53,6 +55,7 @@ For a separate server, use the remote constructor. Start a local server in one
 terminal:
 
 ```bash
+pip install 'gemmadecision[serve,pydantic-ai]'
 gemmadecision serve --host 127.0.0.1 --port 8700
 ```
 
@@ -200,7 +203,7 @@ from the serving backend and hardware.
 
 ## Compatibility and testing
 
-The package includes `pydantic-ai-slim>=2.51,<3` and was tested against
+The `pydantic-ai` extra installs `pydantic-ai-slim>=2.51,<3`; the integration was tested against
 2.51.0. PydanticAI is imported only when the integration module is used.
 Tests exercise actual PydanticAI agents against deterministic fake HTTP
 clients and local inference backends, including lazy shared loading, typed

@@ -2,7 +2,6 @@
 # embedded in the image. Use a GPU image/runtime for CUDA or vLLM deployments.
 FROM python:3.12-slim-bookworm
 
-ARG TORCH_VERSION=2.14.0
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -12,9 +11,8 @@ WORKDIR /app
 COPY pyproject.toml README.md LICENSE NOTICE ./
 COPY python/ ./python/
 
-# Installing the CPU wheel first keeps this CPU image free of CUDA libraries.
-RUN python -m pip install "torch==${TORCH_VERSION}" --index-url https://download.pytorch.org/whl/cpu \
-    && python -m pip install . \
+# The pre-exported CPU runtime needs neither Torch nor CUDA libraries.
+RUN python -m pip install '.[serve]' \
     && useradd --create-home --uid 10001 --user-group gemmadecision \
     && mkdir -p /models \
     && chown 10001:10001 /models

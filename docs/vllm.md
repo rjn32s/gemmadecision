@@ -2,9 +2,11 @@
 
 The optional backend targets **vLLM 0.30.0 on Linux with a BF16-capable CUDA
 GPU**. It has passed real H100 inference and Granian HTTP checks, including
-PydanticAI requests. Use the default PyTorch backend for CPU and MPS.
+PydanticAI requests in the 0.1.0 checks. Version 0.2.0 uses ONNX Runtime on CPU
+by default; install `gemmadecision[torch]` and select MPS explicitly for Apple
+GPU execution. Add the `pydantic-ai` extra when using typed agents.
 
-**Batched PyTorch remains the recommended default.** In the same H100/Torch
+**The recorded GPU comparison favored batched PyTorch.** In the same H100/Torch
 2.13.0 experiment, four short candidates took 16.64 ms with batched PyTorch and
 43.03 ms with vLLM; 32 took 18.93 ms and 56.85 ms respectively. These are warm
 backend medians, including tokenization and the head, with five measured

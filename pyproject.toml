@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gemmadecision"
-version = "0.1.0"
-description = "Typed local decisions for PydanticAI, with Rust HTTP serving and batched Gemma inference"
+version = "0.2.0"
+description = "Lightweight local decisions with an optimized Gemma runtime, optional PydanticAI and Rust HTTP serving"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
@@ -17,20 +17,21 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
-  "pydantic>=2.12,<3", "httpx>=0.28,<1", "pydantic-ai-slim>=2.51,<3",
-  "granian>=2.8,<3", "fastapi>=0.133,<0.137", "torch>=2.13,<2.15",
-  "transformers>=5.17,<6", "safetensors>=0.8,<1", "huggingface-hub>=1.33,<2", "numpy>=2,<3",
+  "pydantic>=2.12,<3", "httpx>=0.28,<1", "onnxruntime>=1.30,<1.31",
+  "tokenizers>=0.22,<0.24", "huggingface-hub>=1.33,<2", "numpy>=1.26,<3",
 ]
 
 [project.optional-dependencies]
-serve = ["granian>=2.8,<3", "fastapi>=0.133,<0.137", "torch>=2.13,<2.15", "transformers>=5.17,<6", "safetensors>=0.8,<1", "huggingface-hub>=1.33,<2", "numpy>=2,<3"]
-http = ["granian>=2.8,<3", "fastapi>=0.133,<0.137"]
+serve = ["granian>=2.8,<3", "fastapi>=0.133,<0.150"]
+http = ["granian>=2.8,<3", "fastapi>=0.133,<0.150"]
+torch = ["torch>=2.11,<2.15", "transformers>=5.17,<6", "safetensors>=0.8,<1"]
 pydantic-ai = ["pydantic-ai-slim>=2.51,<3"]
-vllm = ["vllm==0.30.0", "granian>=2.8,<3", "fastapi>=0.133,<0.137", "transformers>=5.17,<6"]
-test = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "asgi-lifespan>=2,<3", "granian>=2.8,<3", "fastapi>=0.133,<0.137", "build>=1,<2", "twine>=6,<7"]
+vllm = ["vllm==0.30.0", "granian>=2.8,<3", "fastapi>=0.133,<0.150", "transformers>=5.17,<6", "safetensors>=0.8,<1"]
+test = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "asgi-lifespan>=2,<3", "granian>=2.8,<3", "fastapi>=0.133,<0.150", "pydantic-ai-slim>=2.51,<3", "build>=1,<2", "twine>=6,<7"]
 
 [project.scripts]
 gemmadecision = "gemmadecision.cli:main"

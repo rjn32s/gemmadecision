@@ -1,6 +1,7 @@
 # HTTP API
 
-Start `gemmadecision serve` and use `http://127.0.0.1:8700`. The service exposes
+Install `pip install 'gemmadecision[serve]'`, then start `gemmadecision serve`
+and use `http://127.0.0.1:8700`. The default runtime is CPU ONNX. The service exposes
 decision and ranking endpoints backed by one resident model and a bounded
 batching queue. It is not an OpenAI chat-completions endpoint.
 

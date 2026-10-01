@@ -1,4 +1,4 @@
-<span class="hero-kicker">gemmadecision · Python package 0.1.0</span>
+<span class="hero-kicker">gemmadecision · Python package 0.2.0</span>
 
 # Small decisions. A few lines of Python.
 
@@ -22,7 +22,8 @@ print(team)
 ```
 
 The first call downloads and loads the public model. Later calls reuse it in the
-same process. No hosted-model API key or server is required for local use.
+same process. The default uses ONNX Runtime on CPU without installing Torch
+or Transformers. No hosted-model API key or server is required for local use.
 
 <div class="grid cards" markdown>
 
@@ -34,19 +35,19 @@ same process. No hosted-model API key or server is required for local use.
 
 - **Keep outputs typed**
 
-    Use PydanticAI with `Literal`, `Enum`, boolean and finite Pydantic fields.
+    Install the `pydantic-ai` extra for `Literal`, `Enum`, boolean and finite Pydantic fields.
 
     [PydanticAI guide](pydantic_ai.md)
 
 - **Share one model over HTTP**
 
-    Start `gemmadecision serve` and connect synchronous or asynchronous clients.
+    Install the `serve` extra, then start `gemmadecision serve` and connect clients.
 
     [Serving guide](guides/serving.md)
 
 - **Choose a deployment**
 
-    Use CPU, NVIDIA CUDA or Apple MPS with PyTorch; vLLM is optional on Linux/CUDA.
+    Start on CPU with ONNX Runtime. Add the Torch extra for CUDA or Apple MPS; vLLM is optional on Linux/CUDA.
 
     [Deployment guide](guides/deployment.md)
 
@@ -65,8 +66,9 @@ same process. No hosted-model API key or server is required for local use.
 
 ## What has been verified
 
-The published PyPI wheel passed fresh Modal CPU and H100 checks for direct
-Python calls, local PydanticAI and real HTTP serving. On four CPU cores, two
+The historical **0.1.0 Torch release** passed fresh Modal CPU and H100 checks
+for direct Python calls, local PydanticAI and real HTTP serving. Those checks
+do not establish 0.2.0 ONNX performance. On four CPU cores, two
 short 30-token candidate inputs took **124 ms median** in a small repeated
 measurement. [CPU timings](cpu-latency.md) and
 [installation evidence](installed-package-validation.md) include the scope and

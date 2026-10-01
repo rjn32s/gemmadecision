@@ -1,0 +1,211 @@
+{
+  "candidate_wheel": {
+    "name": "gemmadecision-0.2.0-py3-none-any.whl",
+    "sha256": "0d96bcfb0e852caeb8673b0ed7b9afca0612a1213f6d13ce8a4a86edcbd45341"
+  },
+  "documentation_provenance": {
+    "note": "Only remote temporary filesystem paths omitted; measurements, checks, public package URLs, hashes, and candidate-wheel identity are unchanged.",
+    "omitted_fields": [
+      "stages.http.installation.package_source",
+      "stages.local.installation.package_source"
+    ],
+    "source_report_sha256": "9f930e262ef77d55dc8f86a9a58d36e5b7d55d025f58b66a65096b77f09d542d"
+  },
+  "elapsed_s": 60.7128354,
+  "installed_artifact": {
+    "sha256": "0d96bcfb0e852caeb8673b0ed7b9afca0612a1213f6d13ce8a4a86edcbd45341",
+    "url": "file:///candidate/gemmadecision-0.2.0-py3-none-any.whl",
+    "version": "0.2.0"
+  },
+  "scope": "Fresh installed package plus serve,pydantic-ai; real CPU ONNX, local native Agent, Granian HTTP SDK and remote Agent. Functional checks only.",
+  "script_sha256": "a6b97db0efdfbd3b666a5367aa10a33dcbfa7f9bc78d23d0e992c7f030c92c06",
+  "stages": {
+    "http": {
+      "checks": {
+        "accuracy_asserted": false,
+        "native_remote_literal": "billing",
+        "readiness": {
+          "backend": "onnx",
+          "cache_size": 0,
+          "completed_requests": 0,
+          "context_limit": 3072,
+          "device": "cpu",
+          "dtype": "float32_compute_lossless_16bit_storage",
+          "encoder_context_limit": 32768,
+          "head_dtype": "float32",
+          "max_action_tokens": 768,
+          "max_batch_size": 32,
+          "max_batch_tokens": 8192,
+          "max_state_tokens": 2048,
+          "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+          "model_batches": 0,
+          "model_revision": "785d530221c990671f29976902540101bb9c7647",
+          "num_threads": 4,
+          "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+          "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+          "queued_requests": 0,
+          "serving_runtime": "granian-rust",
+          "status": "ready",
+          "strict": false,
+          "temperature": 4.136820402388508,
+          "verified": true
+        },
+        "sdk_choice": {
+          "choice": "billing",
+          "confidence": 0.982406149915786,
+          "probabilities": {
+            "billing": 0.982406149915786,
+            "technical": 0.017593850084214113
+          },
+          "scores": {
+            "billing": -2.7439491748809814,
+            "technical": -19.384124755859375
+          },
+          "type": "choice"
+        },
+        "server_started_offline": true,
+        "unauthenticated_status": 401
+      },
+      "forbidden_import_attempts": [],
+      "forbidden_loaded_modules": [],
+      "installation": {
+        "distributions": {
+          "annotated-doc": "0.0.5",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "certifi": "2026.7.22",
+          "click": "8.5.0",
+          "fastapi": "0.142.2",
+          "filelock": "4.0.7",
+          "flatbuffers": "25.12.19",
+          "fsspec": "2026.9.0",
+          "gemmadecision": "0.2.0",
+          "genai-prices": "0.1.9",
+          "granian": "2.8.4",
+          "griffelib": "2.3.0",
+          "h11": "0.16.0",
+          "hf-xet": "1.6.0",
+          "httpcore": "1.0.9",
+          "httpcore2": "2.13.1",
+          "httpx": "0.28.1",
+          "httpx2": "2.13.1",
+          "huggingface-hub": "1.33.0",
+          "idna": "3.20",
+          "logfire-api": "5.1.1",
+          "numpy": "2.5.3",
+          "onnxruntime": "1.30.0",
+          "opentelemetry-api": "1.45.0",
+          "packaging": "26.3",
+          "pip": "25.0.1",
+          "protobuf": "7.36.2",
+          "pydantic": "2.13.5",
+          "pydantic-ai-slim": "2.52.0",
+          "pydantic-core": "2.46.5",
+          "pydantic-graph": "2.52.0",
+          "pyyaml": "6.0.3",
+          "starlette": "1.7.0",
+          "tokenizers": "0.23.2",
+          "tqdm": "4.70.1",
+          "truststore": "0.10.4",
+          "typing-extensions": "4.16.0",
+          "typing-inspection": "0.4.4"
+        },
+        "forbidden_distributions": [],
+        "model_pins": {
+          "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+          "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+          "source_revision": "785d530221c990671f29976902540101bb9c7647"
+        },
+        "python": "3.13.3",
+        "version": "0.2.0"
+      },
+      "stage": "http",
+      "status": "passed"
+    },
+    "local": {
+      "checks": {
+        "accuracy_asserted": false,
+        "backend": {
+          "backend": "onnx",
+          "cache_size": 0,
+          "context_limit": 3072,
+          "device": "cpu",
+          "dtype": "float32_compute_lossless_16bit_storage",
+          "encoder_context_limit": 32768,
+          "head_dtype": "float32",
+          "max_action_tokens": 768,
+          "max_batch_size": 32,
+          "max_batch_tokens": 8192,
+          "max_state_tokens": 2048,
+          "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+          "model_revision": "785d530221c990671f29976902540101bb9c7647",
+          "num_threads": 4,
+          "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+          "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+          "strict": false,
+          "temperature": 4.136820402388508,
+          "verified": true
+        },
+        "provider": "local://gemmadecision",
+        "typed_literal_output": "billing"
+      },
+      "forbidden_import_attempts": [],
+      "forbidden_loaded_modules": [],
+      "installation": {
+        "distributions": {
+          "annotated-doc": "0.0.5",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "certifi": "2026.7.22",
+          "click": "8.5.0",
+          "fastapi": "0.142.2",
+          "filelock": "4.0.7",
+          "flatbuffers": "25.12.19",
+          "fsspec": "2026.9.0",
+          "gemmadecision": "0.2.0",
+          "genai-prices": "0.1.9",
+          "granian": "2.8.4",
+          "griffelib": "2.3.0",
+          "h11": "0.16.0",
+          "hf-xet": "1.6.0",
+          "httpcore": "1.0.9",
+          "httpcore2": "2.13.1",
+          "httpx": "0.28.1",
+          "httpx2": "2.13.1",
+          "huggingface-hub": "1.33.0",
+          "idna": "3.20",
+          "logfire-api": "5.1.1",
+          "numpy": "2.5.3",
+          "onnxruntime": "1.30.0",
+          "opentelemetry-api": "1.45.0",
+          "packaging": "26.3",
+          "pip": "25.0.1",
+          "protobuf": "7.36.2",
+          "pydantic": "2.13.5",
+          "pydantic-ai-slim": "2.52.0",
+          "pydantic-core": "2.46.5",
+          "pydantic-graph": "2.52.0",
+          "pyyaml": "6.0.3",
+          "starlette": "1.7.0",
+          "tokenizers": "0.23.2",
+          "tqdm": "4.70.1",
+          "truststore": "0.10.4",
+          "typing-extensions": "4.16.0",
+          "typing-inspection": "0.4.4"
+        },
+        "forbidden_distributions": [],
+        "model_pins": {
+          "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+          "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+          "source_revision": "785d530221c990671f29976902540101bb9c7647"
+        },
+        "python": "3.13.3",
+        "version": "0.2.0"
+      },
+      "stage": "local",
+      "status": "passed"
+    }
+  },
+  "status": "passed",
+  "timeout_s": 300.0
+}

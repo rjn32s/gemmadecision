@@ -1,0 +1,547 @@
+{
+  "status": "complete",
+  "model_revision": "785d530221c990671f29976902540101bb9c7647",
+  "development_sha256": "26c7628d09cd1f44d5a77a10130f9e2ede63abc88b286c33c6ad6a9b98436a51",
+  "development_only": true,
+  "calibration_or_final_opened": false,
+  "model_or_temperature_changed": false,
+  "validator_sha256": "d529be7cbb0c3fe7db81f5311ec8b121e0fb1015d0e4bd4dce11bfc3bc3053e7",
+  "max_seconds": 840,
+  "requested_cases": 700,
+  "cpu_threads": 4,
+  "provisional_top1_agreement_gate": 0.99,
+  "backends": {
+    "torch_fp32": {
+      "load_and_integrity_check_s": 15.457342101,
+      "metadata": {
+        "backend": "torch",
+        "device": "cpu",
+        "dtype": "float32",
+        "head_dtype": "float32",
+        "strict": false,
+        "max_batch_tokens": 4096,
+        "max_batch_size": 16,
+        "model_revision": "785d530221c990671f29976902540101bb9c7647",
+        "verified": true
+      },
+      "development_complete": true,
+      "latency": [
+        {
+          "name": "tokens-30-choices-2",
+          "target_joint_tokens": 30,
+          "actual_joint_token_counts": [
+            29,
+            29
+          ],
+          "candidate_count": 2,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.17633036600000196,
+            0.19437007800001993,
+            0.23184338699999785,
+            0.16970107299999881,
+            0.12876215800000068,
+            0.1245385859999999,
+            0.12445829800000752,
+            0.11814483699998846,
+            0.11788034700001049,
+            0.1854726089999872
+          ],
+          "p50_ms": 149.23161549999975,
+          "p95_ms": 214.98039795000773,
+          "sequential_requests_per_s": 6.363340079001922,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-30-choices-4",
+          "target_joint_tokens": 30,
+          "actual_joint_token_counts": [
+            29,
+            29,
+            29,
+            29
+          ],
+          "candidate_count": 4,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.18258100400001354,
+            0.24007988400001068,
+            0.18583833299999242,
+            0.18347350899998105,
+            0.1867148620000023,
+            0.19326548700001922,
+            0.23392335699998057,
+            0.18164688699999942,
+            0.1788619269999856,
+            0.21988527700000304
+          ],
+          "p50_ms": 186.27659749999737,
+          "p95_ms": 237.30944684999713,
+          "sequential_requests_per_s": 5.034560934206552,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-128-choices-2",
+          "target_joint_tokens": 128,
+          "actual_joint_token_counts": [
+            128,
+            128
+          ],
+          "candidate_count": 2,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.41058902500000727,
+            0.3694725690000098,
+            0.43040350600000465,
+            0.3822574920000079,
+            0.38182825100000173,
+            0.4263250089999815,
+            0.42147556999998415,
+            0.5497214680000013,
+            0.4887175490000004,
+            0.41300549499999306
+          ],
+          "p50_ms": 417.2405324999886,
+          "p95_ms": 522.2697044500009,
+          "sequential_requests_per_s": 2.339840309277626,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-128-choices-4",
+          "target_joint_tokens": 128,
+          "actual_joint_token_counts": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "candidate_count": 4,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.7087608270000203,
+            0.8126897950000114,
+            0.6858987049999996,
+            0.6722503710000183,
+            0.6762533950000034,
+            0.6835293530000115,
+            0.7679728770000054,
+            0.6842482680000046,
+            0.6646006080000006,
+            0.6536876829999869
+          ],
+          "p50_ms": 683.888810500008,
+          "p95_ms": 792.5671819000087,
+          "sequential_requests_per_s": 1.426555525867369,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-512-choices-2",
+          "target_joint_tokens": 512,
+          "actual_joint_token_counts": [
+            512,
+            512
+          ],
+          "candidate_count": 2,
+          "warmups": 3,
+          "repeats": 5,
+          "samples_s": [
+            1.2326075340000102,
+            1.34248470899999,
+            1.2623387909999906,
+            1.2615967100000205,
+            1.3425718390000156
+          ],
+          "p50_ms": 1262.3387909999906,
+          "p95_ms": 1342.5544130000105,
+          "sequential_requests_per_s": 0.7762047198952663,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-512-choices-4",
+          "target_joint_tokens": 512,
+          "actual_joint_token_counts": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "candidate_count": 4,
+          "warmups": 3,
+          "repeats": 5,
+          "samples_s": [
+            2.457200266000001,
+            2.4641676740000094,
+            2.394132892000016,
+            2.5100166400000035,
+            2.4383523639999964
+          ],
+          "p50_ms": 2457.2002660000007,
+          "p95_ms": 2500.8468468000046,
+          "sequential_requests_per_s": 0.407701652648231,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        }
+      ],
+      "runtime_smoke": {
+        "choice_noul_score_typed_output": true,
+        "cache_disabled": true,
+        "empty_batch": true,
+        "batch_reversal_max_abs_error": 0.0,
+        "accuracy_asserted": false
+      },
+      "development_cases_scored": 700,
+      "development_seconds": 174.094584096,
+      "development_accuracy": {
+        "overall": {
+          "cases": 700,
+          "correct": 609,
+          "accuracy": 0.87
+        },
+        "evidence_relation": {
+          "cases": 300,
+          "correct": 237,
+          "accuracy": 0.79
+        },
+        "intent_routing": {
+          "cases": 300,
+          "correct": 285,
+          "accuracy": 0.95
+        },
+        "rule_compliance": {
+          "cases": 100,
+          "correct": 87,
+          "accuracy": 0.87
+        }
+      }
+    },
+    "onnx_primary": {
+      "load_and_integrity_check_s": 4.870483073000003,
+      "metadata": {
+        "backend": "onnx",
+        "device": "cpu",
+        "dtype": "float32_compute_lossless_16bit_storage",
+        "head_dtype": "float32",
+        "strict": false,
+        "num_threads": 4,
+        "max_batch_tokens": 4096,
+        "max_batch_size": 16,
+        "context_limit": 3072,
+        "encoder_context_limit": 32768,
+        "model_revision": "785d530221c990671f29976902540101bb9c7647",
+        "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+        "onnx_revision": null,
+        "verified": true
+      },
+      "development_complete": true,
+      "latency": [
+        {
+          "name": "tokens-30-choices-2",
+          "target_joint_tokens": 30,
+          "actual_joint_token_counts": [
+            29,
+            29
+          ],
+          "candidate_count": 2,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.11282889399996066,
+            0.11345936399999346,
+            0.10933125099995777,
+            0.10317556100000047,
+            0.1300035209999919,
+            0.1107611759999827,
+            0.10579418300000043,
+            0.10875470700000278,
+            0.12575087999999823,
+            0.09073812900004441
+          ],
+          "p50_ms": 110.04621349997024,
+          "p95_ms": 128.08983254999475,
+          "sequential_requests_per_s": 9.004160828121716,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-30-choices-4",
+          "target_joint_tokens": 30,
+          "actual_joint_token_counts": [
+            29,
+            29,
+            29,
+            29
+          ],
+          "candidate_count": 4,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.1753316540000469,
+            0.19518222099998184,
+            0.219757235999964,
+            0.20325154700003623,
+            0.19417791199998646,
+            0.18860632100000885,
+            0.24171060300000136,
+            0.2924525519999861,
+            0.2770827570000165,
+            0.29372656499998584
+          ],
+          "p50_ms": 211.5043915000001,
+          "p95_ms": 293.15325914998596,
+          "sequential_requests_per_s": 4.3835052121507365,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-128-choices-2",
+          "target_joint_tokens": 128,
+          "actual_joint_token_counts": [
+            128,
+            128
+          ],
+          "candidate_count": 2,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.3128326239999524,
+            0.2816324130000112,
+            0.2917413270000111,
+            0.31955921700000545,
+            0.32284303599999475,
+            0.32601100399995175,
+            0.33591966000000184,
+            0.4736345350000306,
+            0.4984791520000158,
+            0.318248178000033
+          ],
+          "p50_ms": 321.2011265000001,
+          "p95_ms": 487.29907435002247,
+          "sequential_requests_per_s": 2.8728193018325885,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-128-choices-4",
+          "target_joint_tokens": 128,
+          "actual_joint_token_counts": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "candidate_count": 4,
+          "warmups": 3,
+          "repeats": 10,
+          "samples_s": [
+            0.5309205099999872,
+            0.5493377759999589,
+            0.8240097230000174,
+            0.8011296130000005,
+            0.7619909860000007,
+            0.6799087370000052,
+            0.7993998900000179,
+            1.0136644419999925,
+            0.8578860130000407,
+            0.7197291519999567
+          ],
+          "p50_ms": 780.6954380000093,
+          "p95_ms": 943.5641489500141,
+          "sequential_requests_per_s": 1.3266159089640819,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-512-choices-2",
+          "target_joint_tokens": 512,
+          "actual_joint_token_counts": [
+            512,
+            512
+          ],
+          "candidate_count": 2,
+          "warmups": 3,
+          "repeats": 5,
+          "samples_s": [
+            1.137529187000041,
+            1.2560303330000124,
+            1.2412546980000343,
+            1.0193611110000234,
+            1.1066819349999832
+          ],
+          "p50_ms": 1137.529187000041,
+          "p95_ms": 1253.0752060000168,
+          "sequential_requests_per_s": 0.867926381589988,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        },
+        {
+          "name": "tokens-512-choices-4",
+          "target_joint_tokens": 512,
+          "actual_joint_token_counts": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "candidate_count": 4,
+          "warmups": 3,
+          "repeats": 5,
+          "samples_s": [
+            2.510972042999981,
+            2.0829669649999687,
+            2.392230994999977,
+            2.122429371999999,
+            2.3869718789999865
+          ],
+          "p50_ms": 2386.9718789999865,
+          "p95_ms": 2487.2238333999803,
+          "sequential_requests_per_s": 0.4349501116145261,
+          "scope": "DecisionEngine.rank including validation, tokenization, scoring and typed response; no HTTP/download; cache disabled."
+        }
+      ],
+      "runtime_smoke": {
+        "choice_noul_score_typed_output": true,
+        "cache_disabled": true,
+        "empty_batch": true,
+        "batch_reversal_max_abs_error": 0.0,
+        "accuracy_asserted": false
+      },
+      "development_cases_scored": 700,
+      "development_seconds": 149.887149675,
+      "development_accuracy": {
+        "overall": {
+          "cases": 700,
+          "correct": 609,
+          "accuracy": 0.87
+        },
+        "evidence_relation": {
+          "cases": 300,
+          "correct": 237,
+          "accuracy": 0.79
+        },
+        "intent_routing": {
+          "cases": 300,
+          "correct": 285,
+          "accuracy": 0.95
+        },
+        "rule_compliance": {
+          "cases": 100,
+          "correct": 87,
+          "accuracy": 0.87
+        }
+      },
+      "manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+      "parity": {
+        "groups": {
+          "overall": {
+            "cases": 700,
+            "top1_agreements": 700,
+            "max_abs_score_error": 0.00017344951629638672,
+            "pairs": 2300,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 8.1156550542168e-06
+          },
+          "evidence_relation": {
+            "cases": 300,
+            "top1_agreements": 300,
+            "max_abs_score_error": 0.00017344951629638672,
+            "pairs": 900,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 5.67651457256741e-06
+          },
+          "margin_ge_1": {
+            "cases": 674,
+            "top1_agreements": 674,
+            "max_abs_score_error": 0.00017344951629638672,
+            "pairs": 2224,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 8.030359050352797e-06
+          },
+          "intent_routing": {
+            "cases": 300,
+            "top1_agreements": 300,
+            "max_abs_score_error": 6.29425048828125e-05,
+            "pairs": 1200,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 9.360667318105698e-06
+          },
+          "margin_lt_0.5": {
+            "cases": 12,
+            "top1_agreements": 12,
+            "max_abs_score_error": 4.76837158203125e-05,
+            "pairs": 36,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 1.057754788133833e-05
+          },
+          "rule_compliance": {
+            "cases": 100,
+            "top1_agreements": 100,
+            "max_abs_score_error": 8.20159912109375e-05,
+            "pairs": 200,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 1.1621713638305663e-05
+          },
+          "margin_lt_1": {
+            "cases": 10,
+            "top1_agreements": 10,
+            "max_abs_score_error": 4.57763671875e-05,
+            "pairs": 28,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 9.932688304356166e-06
+          },
+          "margin_lt_0.1": {
+            "cases": 4,
+            "top1_agreements": 4,
+            "max_abs_score_error": 8.022785186767578e-05,
+            "pairs": 12,
+            "top1_agreement": 1.0,
+            "mean_abs_score_error": 1.22984250386556e-05
+          }
+        },
+        "disagreements": [],
+        "max_abs_score_error": 0.00017344951629638672,
+        "mean_abs_score_error": 8.1156550542168e-06,
+        "p95_abs_score_error": 2.288818359375e-05,
+        "max_abs_probability_error": 9.07949723372159e-06,
+        "reference_margin_p05": 1.4661473274230958,
+        "reference_margin_median": 10.266826748847961,
+        "minimum_top1_agreement": 0.99,
+        "provisional_agreement_gate_passed": true,
+        "interpretation": "Conversion fidelity on existing development data, not a new blind accuracy benchmark."
+      }
+    }
+  },
+  "latency_caveat": "Small repeated same-process samples, not production tail latency or an accuracy benchmark.",
+  "elapsed_seconds": 453.40163598799995,
+  "process_peak_rss_mib": 2781.7578125,
+  "environment": {
+    "python": "3.13.3",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "cpu_model": "unknown",
+    "cpu_affinity_count": 4,
+    "versions": {
+      "torch": "2.14.0+cpu",
+      "transformers": "5.17.0",
+      "onnxruntime": "1.30.0",
+      "tokenizers": "0.23.2",
+      "numpy": "2.5.3",
+      "pydantic": "2.13.5"
+    }
+  },
+  "selection": {
+    "available": 700,
+    "selected": 700,
+    "supported": 700,
+    "skipped": [],
+    "selected_ids_sha256": "e88ef3fc7c06784d96c13502c216be03b2f3055d743c9c38fb3e8fc4b68c20a6",
+    "families": {
+      "evidence_relation": 300,
+      "intent_routing": 300,
+      "rule_compliance": 100
+    },
+    "selection_rule": "SHA256(onnx-release-parity-v1:<row id>) ascending; independent of labels/predictions.",
+    "pair_count": 2300,
+    "joint_token_min": 25,
+    "joint_token_max": 141
+  },
+  "provisional_primary_gate_passed": true,
+  "provisional_int8_gate_passed": false,
+  "release_selection": "No artifact promoted or published by this script."
+}

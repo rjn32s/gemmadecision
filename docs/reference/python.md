@@ -1,6 +1,6 @@
 # Python API
 
-These APIs are available in `gemmadecision==0.1.0`. Importing the package does
+These APIs are available in `gemmadecision==0.2.0`. Importing the package does
 not load model weights. The simple local functions load and reuse one engine on
 first use; HTTP clients connect to a separately running server.
 
@@ -67,21 +67,22 @@ if __name__ == "__main__":
     main()
 ```
 
-`DecisionEngine.from_pretrained(model_path=None, *, device="auto", backend="torch",
+`DecisionEngine.from_pretrained(model_path=None, *, device="auto", backend="auto",
 strict=False, max_batch_tokens=8192, max_batch_size=32, cache_size=0,
-offline=False, gpu_memory_utilization=0.2)` loads the immutable published model.
+offline=False, gpu_memory_utilization=0.2)` loads the pinned runtime model.
+The default uses CPU ONNX Runtime without importing Torch or Transformers.
 
 | Option | Meaning |
 |---|---|
-| `model_path` | Complete local model directory; otherwise download the pinned public revision. |
-| `device` | `auto`, `cpu`, `cuda`, or `mps`. Auto chooses CUDA, then MPS, then CPU. |
-| `backend` | `torch` by default; optional `vllm` requires the supported CUDA installation. |
-| `strict` | Torch singleton scoring for reference comparisons; unsupported with vLLM. |
-| `max_batch_tokens` | Torch padded-token budget per forward pass. |
-| `max_batch_size` | Torch inputs per forward pass; vLLM maximum concurrent sequences. |
+| `model_path` | Complete ONNX or native model directory; otherwise download the pinned files for the selected backend. With `backend="auto"`, a legacy directory containing `joint_config.json` but no `onnx_manifest.json` selects Torch. |
+| `device` | `auto`, `cpu`, `cuda`, or `mps`. The default auto backend uses CPU; explicit `cuda`/`mps` selects Torch. Within the Torch backend, `auto` chooses CUDA, then MPS, then CPU. |
+| `backend` | `auto` by default; chooses `onnx` for CPU, `torch` for explicit CUDA/MPS or a legacy native model directory. `onnx` is CPU-only; `torch` and `vllm` need their corresponding extras. |
+| `strict` | Singleton scoring with ONNX/Torch; only native Torch preserves the reference execution shape. Unsupported with vLLM. |
+| `max_batch_tokens` | ONNX/Torch padded-token budget per forward pass. |
+| `max_batch_size` | ONNX/Torch inputs per forward pass; vLLM maximum concurrent sequences. |
 | `cache_size` | Exact complete-input score-cache entries; 0 disables the cache. Range 0–1,000,000. |
 | `offline` | When downloading implicitly, require an existing Hugging Face cache entry. Local-directory loading never needs a download. |
-| `gpu_memory_utilization` | vLLM memory setting, strictly between 0 and 1; ignored by Torch. |
+| `gpu_memory_utilization` | vLLM memory setting, strictly between 0 and 1; ignored by ONNX/Torch. |
 
 | Method | Return |
 |---|---|
@@ -162,6 +163,10 @@ passed explicitly. `transport` is useful for HTTPX test transports.
 
 ## Native PydanticAI model
 
+```bash
+pip install 'gemmadecision[pydantic-ai]'
+```
+
 ```python
 from typing import Literal
 
@@ -190,8 +195,8 @@ if __name__ == "__main__":
 | `GemmaDecisionModel.local(*, engine=None, settings=None)` | No HTTP server. Lazily shares the simple API's engine, or reuses an injected engine. |
 | `GemmaDecisionModel(model_name="rajan2k/GemmaDecision-270M", *, base_url="http://127.0.0.1:8700", api_key=None, client=None, settings=None)` | Uses the HTTP service. An injected `AsyncDecisionClient` retains caller-owned connection lifetime. |
 
-The native integration requires PydanticAI's decision-model support, included in
-the normal install. Supported output shapes and their expansion limits are
+The native integration requires PydanticAI's decision-model support, installed
+with the `pydantic-ai` extra. Supported output shapes and their expansion limits are
 listed in [PydanticAI field constraints](limits.md#pydanticai-field-constraints).
 Use field descriptions or agent `instructions` to express the question; the
 prompt supplies the material being judged.
@@ -211,7 +216,11 @@ an injected client/engine remains caller-owned.
 
 ## Download helper
 
-`gemmadecision.model.download_model(*, local_dir=None, offline=False) -> Path`
-downloads the pinned public files with `token=False` and returns their directory.
-It does not instantiate an engine. Loading performs integrity checks against
-the expected v0.4.0 inference files.
+`gemmadecision.model.download_model(*, local_dir=None, offline=False,
+backend="onnx") -> Path` downloads the pinned public files with `token=False`
+and returns their directory without instantiating an engine. Choose `torch`
+or `vllm` to download the native weights instead.
+
+ONNX loading checks the trusted export manifest and listed file hashes, including
+its source v0.4.0 revision. Native loading checks the frozen inference files.
+Copy the complete backend-specific directory for offline use.

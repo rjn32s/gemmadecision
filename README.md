@@ -14,9 +14,14 @@ Small, local decisions in one Python call. [Available on PyPI](https://pypi.org/
 pip install gemmadecision
 ```
 
-Python 3.11+. No API key or server needed. The first call downloads the model
-(about 0.5 GB); later calls reuse it. CPU, NVIDIA CUDA and Apple Silicon are
-selected automatically. After downloading, inference runs locally.
+Python 3.11+. No API key or server needed. Version 0.2.0 runs on CPU with
+ONNX Runtime by default; installing it does not install Torch or Transformers.
+The first call downloads the pinned runtime model; later calls reuse it.
+After downloading, inference runs locally.
+
+Upgrading from 0.1.0 in a notebook? Run `pip install -U gemmadecision`, then
+restart the kernel. The new default avoids importing optional Torch vision/audio
+packages. [Notebook upgrade guide](https://rjn32s.github.io/gemmadecision/guides/troubleshooting/#upgrade-a-010-notebook).
 
 ## Use it in your code
 
@@ -45,6 +50,10 @@ ordered candidates, scores and derived probabilities.
 
 ## PydanticAI
 
+```bash
+pip install 'gemmadecision[pydantic-ai]'
+```
+
 ```python
 from typing import Literal
 from pydantic_ai import Agent
@@ -65,6 +74,7 @@ and finite Pydantic fields are supported.
 ## Serve it
 
 ```bash
+pip install 'gemmadecision[serve]'
 gemmadecision serve
 ```
 
@@ -87,17 +97,31 @@ use `GemmaDecisionModel()` instead of `.local()`.
 
 ## More control when you need it
 
+- [0.2.0 lightweight runtime, conversion fidelity and CPU timings](https://rjn32s.github.io/gemmadecision/lightweight-runtime/)
 - [Hardware settings, offline use, HTTP API and batching](https://github.com/rjn32s/gemmadecision/blob/main/docs/advanced.md)
 - [vLLM backend for Linux/CUDA](https://github.com/rjn32s/gemmadecision/blob/main/docs/vllm.md)
 - [CPU inference timings](https://github.com/rjn32s/gemmadecision/blob/main/docs/cpu-latency.md)
 - [Performance measurements and reproduction](https://github.com/rjn32s/gemmadecision/blob/main/docs/performance.md)
 - [Docker and releases](https://github.com/rjn32s/gemmadecision/blob/main/docs/releasing.md)
 
-The published wheel passed fresh Modal CPU and H100 GPU checks for local APIs,
-PydanticAI and HTTP serving. [Installation validation](https://github.com/rjn32s/gemmadecision/blob/main/docs/installed-package-validation.md).
+The historical 0.1.0 wheel passed fresh Modal CPU and H100 GPU checks for local
+APIs, PydanticAI and HTTP serving. These checks used Torch and do not measure
+the 0.2.0 ONNX default. [Installation validation](https://github.com/rjn32s/gemmadecision/blob/main/docs/installed-package-validation.md).
 
-The default uses batched PyTorch for model computation and Rust for HTTP
-serving. vLLM is optional; no Rust compiler is needed to install the package.
+The default uses ONNX Runtime on CPU. Add only the integrations you need:
+
+| Use | Install |
+|---|---|
+| Local CPU decisions | `pip install gemmadecision` |
+| Rust HTTP server | `pip install 'gemmadecision[serve]'` |
+| Native PydanticAI | `pip install 'gemmadecision[pydantic-ai]'` |
+| Native Torch, CUDA or Apple MPS | `pip install 'gemmadecision[torch]'` |
+| vLLM on supported Linux/CUDA | `pip install 'gemmadecision[vllm]'` |
+
+Extras combine: `pip install 'gemmadecision[serve,torch]'` adds a GPU-capable
+server. Select `--device cuda` or `--device mps` explicitly; in Python use
+`DecisionEngine.from_pretrained(device="cuda")`. The default `auto` path uses
+ONNX on CPU. No Rust compiler is needed for the HTTP server.
 
 This model chooses among supplied options; it does not generate open-ended
 text. Its scores are rankings, and the derived probabilities are not a guarantee

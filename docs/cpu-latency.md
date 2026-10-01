@@ -1,4 +1,11 @@
-# CPU inference latency
+# CPU inference latency: 0.1.0 Torch
+
+These are historical measurements of the 0.1.0 Torch runtime. Version 0.2.0
+uses ONNX Runtime on CPU by default. The timings, memory use, and download size
+on this page do not describe that runtime.
+
+For the current runtime's format, development-set conversion fidelity, and
+same-host Torch/ONNX timings, read [Lightweight CPU runtime: 0.2.0](lightweight-runtime.md).
 
 The published **gemmadecision 0.1.0** wheel was measured on Modal with **4 CPU
 cores and 8 GiB reserved RAM**, CPU-only PyTorch 2.14.0, FP32 model weights,

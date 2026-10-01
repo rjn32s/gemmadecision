@@ -1,7 +1,8 @@
-"""One typed decision contract across batched PyTorch and vLLM inference."""
+"""One typed decision contract across ONNX, PyTorch and vLLM inference."""
 from collections import OrderedDict
 from dataclasses import dataclass
 import hashlib
+from importlib.util import find_spec
 import json
 import math
 from pathlib import Path
@@ -65,26 +66,61 @@ class DecisionEngine:
         self._lock = threading.Lock()
 
     @classmethod
-    def from_pretrained(cls, model_path: str | Path | None = None, *, device="auto", backend="torch",
+    def from_pretrained(cls, model_path: str | Path | None = None, *, device="auto", backend="auto",
                         strict=False, max_batch_tokens=8192, max_batch_size=32, cache_size=0,
                         offline=False, gpu_memory_utilization=.2):
+        if device not in {"auto", "cpu", "cuda", "mps"}:
+            raise ValueError("device must be auto, cpu, cuda or mps")
+        if backend == "auto":
+            if device in {"cuda", "mps"}:
+                backend = "torch"
+            elif model_path is not None and not (Path(model_path) / "onnx_manifest.json").is_file() and (Path(model_path) / "joint_config.json").is_file():
+                backend = "torch"
+            else:
+                backend = "onnx"
+        if backend not in {"onnx", "torch", "vllm"}:
+            raise ValueError("backend must be auto, onnx, torch or vllm")
+        if backend == "onnx" and device not in {"auto", "cpu"}:
+            raise ValueError("The lightweight ONNX runtime uses CPU; install gemmadecision[torch] for CUDA/MPS")
+        if backend == "vllm":
+            if device not in {"auto", "cuda"}:
+                raise ValueError("The vLLM backend requires a supported CUDA GPU")
+            if strict:
+                raise ValueError("Strict singleton mode is available with the Torch and ONNX backends")
+            if not 0 < gpu_memory_utilization < 1:
+                raise ValueError("gpu_memory_utilization must be between zero and one")
+        for value, name in [(max_batch_tokens, "max_batch_tokens"), (max_batch_size, "max_batch_size")]:
+            if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+                raise ValueError(f"{name} must be a positive integer")
+        if isinstance(cache_size, bool) or not isinstance(cache_size, int) or not 0 <= cache_size <= 1_000_000:
+            raise ValueError("cache_size must be between 0 and 1000000")
+        # Detect missing optional wheels before fetching hundreds of megabytes.
+        # Looking up top-level module specs does not import the tensor runtime.
+        if backend in {"torch", "vllm"}:
+            required = ["torch", "transformers", "safetensors"]
+            if backend == "vllm":
+                required.append("vllm")
+            missing = [name for name in required if find_spec(name) is None]
+            if missing:
+                raise ImportError(
+                    f"Missing {', '.join(missing)}; install the selected runtime: "
+                    f"pip install 'gemmadecision[{backend}]'"
+                )
         if model_path is None:
             from .model import download_model
-            model_path = download_model(offline=offline)
-        if backend == "torch":
+            model_path = download_model(offline=offline, backend=backend)
+        if backend == "onnx":
+            from .backends.onnx import ONNXBackend
+            instance = ONNXBackend(model_path, device=device, strict=strict,
+                                   max_batch_tokens=max_batch_tokens, max_batch_size=max_batch_size)
+        elif backend == "torch":
             from .backends.torch import TorchBackend
             instance = TorchBackend(model_path, device=device, strict=strict,
                                     max_batch_tokens=max_batch_tokens, max_batch_size=max_batch_size)
         elif backend == "vllm":
-            if device not in {"auto", "cuda"}:
-                raise ValueError("The vLLM backend requires a supported CUDA GPU")
-            if strict:
-                raise ValueError("Strict singleton reference mode is available only with --backend torch")
             from .backends.vllm import VLLMBackend
             instance = VLLMBackend(model_path, gpu_memory_utilization=gpu_memory_utilization,
                                    max_num_seqs=max_batch_size)
-        else:
-            raise ValueError("backend must be torch or vllm")
         return cls(instance, cache_size=cache_size)
 
     def prepare(self, request: SystemOneRequest) -> PreparedRequest:

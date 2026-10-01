@@ -1,5 +1,9 @@
 # Measured serving performance
 
+These historical measurements cover the **0.1.0 Torch and vLLM implementations**.
+Version 0.2.0 uses ONNX Runtime on CPU by default. These results do not measure
+that default or establish its speed, memory use, or numerical agreement.
+
 On one **NVIDIA H100 80GB HBM3**, scoring 32 short joint inputs took **27.59 ms**
 with batching, compared with **753.36 ms** in the frozen published reference and
 **758.77 ms** in this package's strict singleton mode. That is **27.31×** faster
@@ -161,7 +165,8 @@ validating a new serving input contract.
 
 The optional **vLLM 0.30.0 backend passed real GPU and HTTP/API checks** on an
 H100 80GB HBM3. Batched PyTorch was faster for every backend workload in this
-experiment, so PyTorch remains the default. This comparison uses the frozen
+experiment. This result concerns the optional GPU backends; it does not compare
+them with the current CPU ONNX default. This comparison uses the frozen
 reference and both backends measured sequentially in **the same run with
 Torch 2.13.0+cu130**, Python 3.12.3, Transformers 5.17.0, CUDA 13.0 and two CPU
 threads. It does not compare vLLM against the earlier Torch 2.14.0 run.
@@ -232,7 +237,7 @@ The run verified choice/noul/score responses, the ranking route, native
 PydanticAI Literal/bool output through the HTTP client, missing-key rejection
 (401), and oversized-state rejection (422). After the vLLM server stopped,
 the script also checked the simple `decide()` / `rank()` and local PydanticAI
-APIs. **Those trailing `simple_api` checks used the default Torch backend**,
+APIs. **Those trailing `simple_api` checks used the then-default Torch backend**,
 as their recorded engine metadata shows; they are not vLLM measurements.
 See [vllm-h100-http.json](measurements/vllm-h100-http.json).
 

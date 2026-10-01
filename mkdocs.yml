@@ -95,6 +95,7 @@ nav:
       - CLI and environment: reference/cli.md
       - Limits and model scope: reference/limits.md
   - Performance:
+      - Lightweight CPU runtime: lightweight-runtime.md
       - CPU latency: cpu-latency.md
       - GPU and server measurements: performance.md
       - Published-package checks: installed-package-validation.md

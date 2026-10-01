@@ -1,0 +1,516 @@
+{
+  "archive_measurement_seconds": 1.4339119019999913,
+  "broken_vision_sentinel": "Inference worker rejects every torchvision import with RuntimeError while retaining the real installed wheel. No optional framework import is allowed.",
+  "cached": {
+    "backend": {
+      "backend": "onnx",
+      "context_limit": 3072,
+      "device": "cpu",
+      "dtype": "float32_compute_lossless_16bit_storage",
+      "encoder_context_limit": 32768,
+      "head_dtype": "float32",
+      "max_batch_size": 32,
+      "max_batch_tokens": 8192,
+      "model_revision": "785d530221c990671f29976902540101bb9c7647",
+      "num_threads": 4,
+      "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+      "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+      "strict": false,
+      "verified": true
+    },
+    "cached_offline_model_load_seconds": 5.729643611,
+    "choice": "billing",
+    "first_decide_after_cached_load_ms": 150.20579000000112,
+    "fixture": {
+      "accuracy_measured": false,
+      "choices": {
+        "billing": "Investigate duplicate payments, charges and refunds.",
+        "technical": "Investigate app crashes and sign-in failures."
+      },
+      "joint_tokens_per_candidate": [
+        34,
+        35
+      ],
+      "question": "Which support team should handle this request?",
+      "state": "The same card payment appears twice on my statement."
+    },
+    "forbidden_import_attempts": [],
+    "forbidden_loaded_modules": [],
+    "installed_version": "0.2.0",
+    "mode": "colab",
+    "model_pins": {
+      "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+      "onnx_repository": "rajan2k/GemmaDecision-270M",
+      "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+      "source_revision": "785d530221c990671f29976902540101bb9c7647"
+    },
+    "package_import_seconds": 0.2178512349999977,
+    "peak_process_rss_bytes": 1894252544,
+    "ranking": {
+      "latency_ms": 142.34522799999638,
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "ranked": [
+        {
+          "candidate": "billing",
+          "probability": 0.9523600656722578,
+          "rank": 1,
+          "score": -6.993223190307617,
+          "text": "Investigate duplicate payments, charges and refunds."
+        },
+        {
+          "candidate": "technical",
+          "probability": 0.0476399343277422,
+          "rank": 2,
+          "score": -19.384124755859375,
+          "text": "Investigate app crashes and sign-in failures."
+        }
+      ],
+      "temperature": 4.136820402388508,
+      "usage": {
+        "cached_pairs": 0,
+        "input_tokens": 69,
+        "output_tokens": 0,
+        "total_tokens": 69
+      }
+    },
+    "stage": "cached",
+    "status": "passed",
+    "warm_decide": {
+      "count": 10,
+      "median_ms": 147.0552724999976,
+      "sample_p95_ms": 161.1745729999967,
+      "samples_ms": [
+        129.5540109999962,
+        137.98240799999917,
+        145.89807099999064,
+        153.88106999999707,
+        146.04030499999965,
+        150.97875900001156,
+        143.83716700000093,
+        161.1745729999967,
+        153.54679400000748,
+        148.07023999999558
+      ]
+    },
+    "warm_rank": {
+      "count": 10,
+      "median_ms": 148.54908699999214,
+      "sample_p95_ms": 163.898556999996,
+      "samples_ms": [
+        146.7398349999911,
+        148.40003499999455,
+        154.96684200000743,
+        147.48352300000533,
+        144.08344400000317,
+        148.69813899998974,
+        151.30177700000047,
+        137.1719740000117,
+        163.898556999996,
+        163.7768849999901
+      ]
+    },
+    "warmup_calls_per_method": 3
+  },
+  "cached_worker_seconds": 10.677128917000005,
+  "candidate_archive_sizes": {
+    "all_install_artifacts_are_wheels": true,
+    "artifacts": [
+      {
+        "archive_bytes": 47592,
+        "is_wheel": true,
+        "local_artifact": true,
+        "name": "gemmadecision",
+        "sha256": "0d96bcfb0e852caeb8673b0ed7b9afca0612a1213f6d13ce8a4a86edcbd45341",
+        "url": "file:///candidate/gemmadecision-0.2.0-py3-none-any.whl",
+        "version": "0.2.0"
+      },
+      {
+        "archive_bytes": 73517,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "httpx",
+        "sha256": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+        "url": "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl",
+        "version": "0.28.1"
+      },
+      {
+        "archive_bytes": 78784,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "httpcore",
+        "sha256": "2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+        "url": "https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl",
+        "version": "1.0.9"
+      },
+      {
+        "archive_bytes": 846435,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "huggingface-hub",
+        "sha256": "04e434b06e100eddbce9a6e817d72693a7884b10a79bd67ab48080d5c07eb899",
+        "url": "https://files.pythonhosted.org/packages/fc/16/963096d224b80909432dc16561a615fd33d2d13beef3ce4c63fa25e40867/huggingface_hub-1.33.0-py3-none-any.whl",
+        "version": "1.33.0"
+      },
+      {
+        "archive_bytes": 23585560,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "onnxruntime",
+        "sha256": "86f940afc801ea9681a4da8af84fbe95e1d9ea7d80903952cc1bfad54faad38f",
+        "url": "https://files.pythonhosted.org/packages/f1/a1/ede48ab5dc54907a2999362777f541e132639fb06628ded1932058aa8a36/onnxruntime-1.30.0-cp313-cp313-manylinux_2_28_x86_64.whl",
+        "version": "1.30.0"
+      },
+      {
+        "archive_bytes": 472589,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "pydantic",
+        "sha256": "346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73",
+        "url": "https://files.pythonhosted.org/packages/eb/47/c95ffc2009878c7aac0c5e08528022dcb885933252a88b5f170058014464/pydantic-2.13.5-py3-none-any.whl",
+        "version": "2.13.5"
+      },
+      {
+        "archive_bytes": 2066633,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "pydantic-core",
+        "sha256": "6f7b393a8b3da82f5c1fc0751e6d01ac6c55b93c18226a60bdfba4a724efafd1",
+        "url": "https://files.pythonhosted.org/packages/d3/f2/9e4de77a6271e07a76d2d58b11c091a979c191ed2939bf80067568b369d2/pydantic_core-2.46.5-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "2.46.5"
+      },
+      {
+        "archive_bytes": 3386843,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "tokenizers",
+        "sha256": "41c2f84d172449b4dadb9cdc508e3e364076613c35b16e76ecfe47a60d1e3305",
+        "url": "https://files.pythonhosted.org/packages/2c/ca/ca6b93c7820df123b2662a9469e8facc826ccc94e98fdd0d615f6431e73a/tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "0.23.2"
+      },
+      {
+        "archive_bytes": 13427,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "annotated-types",
+        "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+        "url": "https://files.pythonhosted.org/packages/99/91/8acff4f5e50511b911bbccb72b8628a49c68ce14148cd9f6431094859a90/annotated_types-0.8.0-py3-none-any.whl",
+        "version": "0.8.0"
+      },
+      {
+        "archive_bytes": 125251,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "click",
+        "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+        "url": "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl",
+        "version": "8.5.0"
+      },
+      {
+        "archive_bytes": 4464663,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "hf-xet",
+        "sha256": "d62671bb130879cef0ee4c9ebe47a14af6c66ec53e6d84dc15936e5ffdfac82f",
+        "url": "https://files.pythonhosted.org/packages/67/4e/a28359bf1c1ecf11eba22123168c138698f7cb576ac678f5a2e16cd5da08/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "version": "1.6.0"
+      },
+      {
+        "archive_bytes": 129956,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "packaging",
+        "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+        "url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+        "version": "26.3"
+      },
+      {
+        "archive_bytes": 343223,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "protobuf",
+        "sha256": "89f23aa53c24553a2416fd4fd1ec06f74fa42b14b546d8883128813f775bbfd2",
+        "url": "https://files.pythonhosted.org/packages/db/f3/3996583dd2906297a637af12114deddf7658af6e683fedb83be061983fb5/protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl",
+        "version": "7.36.2"
+      },
+      {
+        "archive_bytes": 801626,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "pyyaml",
+        "sha256": "0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6",
+        "url": "https://files.pythonhosted.org/packages/74/27/e5b8f34d02d9995b80abcef563ea1f8b56d20134d8f4e5e81733b1feceb2/pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "6.0.3"
+      },
+      {
+        "archive_bytes": 80199,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "tqdm",
+        "sha256": "c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73",
+        "url": "https://files.pythonhosted.org/packages/a7/03/921a3d3c75785aca9ebfbfcabfbc3a1be12e2ab5265deb026d55a5a3f83e/tqdm-4.70.1-py3-none-any.whl",
+        "version": "4.70.1"
+      },
+      {
+        "archive_bytes": 14750,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "typing-inspection",
+        "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+        "url": "https://files.pythonhosted.org/packages/67/81/4add07e5172b7ac40d8ed5ff580409a7801a4fe26d529bdd915401dabfbe/typing_inspection-0.4.4-py3-none-any.whl",
+        "version": "0.4.4"
+      },
+      {
+        "archive_bytes": 132079,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "anyio",
+        "sha256": "6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+        "url": "https://files.pythonhosted.org/packages/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e/anyio-4.15.1-py3-none-any.whl",
+        "version": "4.15.1"
+      },
+      {
+        "archive_bytes": 69583,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "idna",
+        "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+        "url": "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl",
+        "version": "3.20"
+      },
+      {
+        "archive_bytes": 136983,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "certifi",
+        "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+        "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
+        "version": "2026.7.22"
+      },
+      {
+        "archive_bytes": 26661,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "flatbuffers",
+        "sha256": "7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4",
+        "url": "https://files.pythonhosted.org/packages/e8/2d/d2a548598be01649e2d46231d151a6c56d10b964d94043a335ae56ea2d92/flatbuffers-25.12.19-py2.py3-none-any.whl",
+        "version": "25.12.19"
+      },
+      {
+        "archive_bytes": 37515,
+        "is_wheel": true,
+        "local_artifact": false,
+        "name": "h11",
+        "sha256": "63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+        "url": "https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl",
+        "version": "0.16.0"
+      }
+    ],
+    "known_archive_bytes": 36933869,
+    "measurement_note": "Compressed archive sizes from pip report URLs and HTTP HEAD; includes the mounted candidate wheel in total, excludes pip metadata/network overhead and extracted install size.",
+    "remote_wheel_archive_bytes": 36886277,
+    "total_wheel_archive_bytes": 36933869,
+    "wheel_archive_bytes_complete": true
+  },
+  "candidate_install_seconds": 13.746669652999998,
+  "cold": {
+    "backend": {
+      "backend": "onnx",
+      "context_limit": 3072,
+      "device": "cpu",
+      "dtype": "float32_compute_lossless_16bit_storage",
+      "encoder_context_limit": 32768,
+      "head_dtype": "float32",
+      "max_batch_size": 32,
+      "max_batch_tokens": 8192,
+      "model_revision": "785d530221c990671f29976902540101bb9c7647",
+      "num_threads": 4,
+      "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+      "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+      "strict": false,
+      "verified": true
+    },
+    "choice": "billing",
+    "download_load_first_decide_seconds": 16.791329016000006,
+    "first_decide_fixture": "reported_user_example",
+    "fixture": {
+      "accuracy_measured": false,
+      "choices": {
+        "billing": "Investigate duplicate payments, charges and refunds.",
+        "technical": "Investigate app crashes and sign-in failures."
+      },
+      "joint_tokens_per_candidate": [
+        34,
+        35
+      ],
+      "question": "Which support team should handle this request?",
+      "state": "The same card payment appears twice on my statement."
+    },
+    "forbidden_import_attempts": [],
+    "forbidden_loaded_modules": [],
+    "installed_version": "0.2.0",
+    "mode": "colab",
+    "model_pins": {
+      "onnx_manifest_sha256": "f541a308c7cc4c75b645d2a026bde4771c0877e7129147cb260c1b8e305be178",
+      "onnx_repository": "rajan2k/GemmaDecision-270M",
+      "onnx_revision": "254ac03b1ec6c96af3b9e605bd9c6f5cc0156fae",
+      "source_revision": "785d530221c990671f29976902540101bb9c7647"
+    },
+    "package_import_seconds": 0.23717024300000844,
+    "peak_process_rss_bytes": 1933783040,
+    "ranking": {
+      "latency_ms": 166.4445389999969,
+      "model": "rajan2k/GemmaDecision-270M@785d530221c990671f29976902540101bb9c7647",
+      "probabilities_source": "softmax_ranking_scores_external_temperature",
+      "ranked": [
+        {
+          "candidate": "billing",
+          "probability": 0.9523600656722578,
+          "rank": 1,
+          "score": -6.993223190307617,
+          "text": "Investigate duplicate payments, charges and refunds."
+        },
+        {
+          "candidate": "technical",
+          "probability": 0.0476399343277422,
+          "rank": 2,
+          "score": -19.384124755859375,
+          "text": "Investigate app crashes and sign-in failures."
+        }
+      ],
+      "temperature": 4.136820402388508,
+      "usage": {
+        "cached_pairs": 0,
+        "input_tokens": 69,
+        "output_tokens": 0,
+        "total_tokens": 69
+      }
+    },
+    "reported_user_example": {
+      "accuracy_measured": false,
+      "choices": [
+        "billing",
+        "technical"
+      ],
+      "inference_completed": true,
+      "legal_choice": true,
+      "result": "billing",
+      "state": "I was charged twice"
+    },
+    "stage": "cold",
+    "status": "passed",
+    "warm_decide": {
+      "count": 10,
+      "median_ms": 163.54565500000007,
+      "sample_p95_ms": 177.8475400000019,
+      "samples_ms": [
+        162.30065700000296,
+        175.03819099999873,
+        175.89974799999197,
+        177.8475400000019,
+        164.3574520000044,
+        154.60082200000613,
+        152.44149300001197,
+        154.94093099999873,
+        162.73385799999573,
+        166.09791399999096
+      ]
+    },
+    "warm_rank": {
+      "count": 10,
+      "median_ms": 152.71137150000413,
+      "sample_p95_ms": 172.9672330000085,
+      "samples_ms": [
+        152.5535170000012,
+        146.4629139999971,
+        133.75521099999332,
+        151.94314400000053,
+        158.33578599999498,
+        139.62038299999335,
+        161.53861300000472,
+        163.58666099999652,
+        152.86922600000707,
+        172.9672330000085
+      ]
+    },
+    "warmup_calls_per_method": 3
+  },
+  "cold_worker_seconds": 23.01435064399999,
+  "documentation_provenance": {
+    "note": "Only remote temporary filesystem paths omitted; measurements, checks, public package URLs, hashes, and candidate-wheel identity are unchanged.",
+    "omitted_fields": [
+      "artifacts_directory",
+      "pip_report_file"
+    ],
+    "source_report_sha256": "4504ead9e31fc9eb340eaaf5857d73cbdaeebb5cf9708b4c5a2c2a8c39100d4b"
+  },
+  "elapsed_seconds": 103.284467354,
+  "environment": {
+    "logical_cpus": 4,
+    "machine": "x86_64",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "python": "3.13.3 (main, May 21 2025, 23:35:07) [GCC 12.2.0]"
+  },
+  "harness_sha256": "b07cee8f61a26f12f78b0c7f95c6e4ee7678fa4f973035918df3639f3377151d",
+  "installation_source": "candidate_wheel",
+  "installed_distributions": {
+    "annotated-types": "0.8.0",
+    "anyio": "4.15.1",
+    "certifi": "2026.7.22",
+    "click": "8.5.0",
+    "filelock": "3.32.3",
+    "flatbuffers": "25.12.19",
+    "fsspec": "2026.7.0",
+    "gemmadecision": "0.2.0",
+    "h11": "0.16.0",
+    "hf-xet": "1.6.0",
+    "httpcore": "1.0.9",
+    "httpx": "0.28.1",
+    "huggingface-hub": "1.33.0",
+    "idna": "3.20",
+    "jinja2": "3.1.6",
+    "markupsafe": "3.0.3",
+    "mpmath": "1.3.0",
+    "networkx": "3.6.1",
+    "numpy": "2.5.2",
+    "onnxruntime": "1.30.0",
+    "packaging": "26.3",
+    "pillow": "12.3.0",
+    "pip": "25.0.1",
+    "protobuf": "7.36.2",
+    "pydantic": "2.13.5",
+    "pydantic-core": "2.46.5",
+    "pyyaml": "6.0.3",
+    "setuptools": "78.1.0",
+    "sympy": "1.14.0",
+    "tokenizers": "0.23.2",
+    "torch": "2.11.0+cpu",
+    "torchvision": "0.26.0+cpu",
+    "tqdm": "4.70.1",
+    "typing-extensions": "4.16.0",
+    "typing-inspection": "0.4.4"
+  },
+  "installed_package_artifact": {
+    "sha256": "0d96bcfb0e852caeb8673b0ed7b9afca0612a1213f6d13ce8a4a86edcbd45341",
+    "url": "file:///candidate/gemmadecision-0.2.0-py3-none-any.whl",
+    "version": "0.2.0"
+  },
+  "mode": "colab",
+  "pip_check_seconds": 0.6735590569999914,
+  "preexisting_packages": {
+    "torch": "2.11.0+cpu",
+    "torchvision": "0.26.0+cpu"
+  },
+  "preexisting_torch_install_seconds": 48.981560141,
+  "preexisting_versions_unchanged": true,
+  "requested_package_version": null,
+  "scope": "Fresh ordinary pip install and CPU functional/latency checks; no accuracy benchmark. Colab mode simulates existing Torch/vision packages, not the complete hosted Colab image.",
+  "started_at_utc": "2026-10-01T03:11:23Z",
+  "status": "passed",
+  "venv_creation_seconds": 3.5094214809999995,
+  "wheel": {
+    "bytes": 47592,
+    "name": "gemmadecision-0.2.0-py3-none-any.whl",
+    "sha256": "0d96bcfb0e852caeb8673b0ed7b9afca0612a1213f6d13ce8a4a86edcbd45341"
+  }
+}

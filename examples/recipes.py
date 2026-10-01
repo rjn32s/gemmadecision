@@ -1,10 +1,12 @@
-"""Runnable decision recipes using the published gemmadecision 0.1 API.
+"""Runnable decision recipes using the gemmadecision 0.2 API.
 
     python examples/recipes.py --list
     python examples/recipes.py --recipe typed-agent --device cpu
 
 Listing or importing this file never loads a model. Running a recipe explicitly
 loads one shared local engine. First use can download the published weights.
+The default engine uses ONNX on CPU. Install gemmadecision[pydantic-ai] for the
+typed-agent recipe, or gemmadecision[torch] before selecting --device cuda.
 These examples show API mechanics; their outputs are not accuracy guarantees.
 """
 from __future__ import annotations

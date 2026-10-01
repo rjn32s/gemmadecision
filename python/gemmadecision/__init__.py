@@ -3,7 +3,7 @@ from .client import AsyncDecisionClient, DecisionClient
 from .types import Choice, Noul, Score, ChoiceAnswer, NoulAnswer, ScoreAnswer, SystemOneResponse, RankingResponse
 from .constants import MODEL_ID, MODEL_REVISION
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = ["decide", "rank", "DecisionClient", "AsyncDecisionClient", "DecisionEngine", "GemmaDecisionModel", "Choice", "Noul", "Score",
            "ChoiceAnswer", "NoulAnswer", "ScoreAnswer", "SystemOneResponse", "RankingResponse"]
 
